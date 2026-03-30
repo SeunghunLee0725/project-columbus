@@ -153,4 +153,36 @@
 - **산출물**: `research/data_collection_plan.md`
 - **결과**: 데이터 수집 로드맵 확정
 
+### 실시간 API 연동 + 통합테스트 + NHIS 데이터 리스트
+- **작업**: 기상청/에어코리아 API 연동, E2E 통합테스트, NHIS 공공데이터 조사
+- **내용**:
+  1. **기상청 API 수집기** (kma_weather_collector.py): 초단기실황+단기예보, 창원 성산구 실측 확인
+  2. **에어코리아 수집기** (airkorea_dust_collector.py): PM2.5/PM10/O3/NO2/CO/SO2, 웅남동 실측
+  3. **통합테스트** (integration_test.py): 5단계 E2E 파이프라인 전체 통과
+     - Step 1: KMA → 기온 17.8°C, 습도 60%
+     - Step 2: AirKorea → PM2.5=31μg/m³ (웅남동)
+     - Step 3: 복합지표 → OSL=14.1, AES=13.3, IRS=6.9
+     - Step 4: ICO RDF 12 인스턴스 (60 트리플)
+     - Step 5: rdflib 검증 통과
+  4. **NHIS 공공데이터 조사** (nhis_opendata_list.md): 33개 데이터셋 분류
+     - A. 핵심 10건 (환경성질환, 건강검진, 진료내역)
+     - B. 상병분석 7건, C. 통계 7건, D. 참조 6건
+     - E. 별도신청 3건 (표본코호트, 건강검진코호트, 맞춤형DB)
+  5. **NHIS 다운로드 안내**: data.go.kr 로그인 후 수동 다운로드 필요 (6건 우선)
+- **결과**: 실측 데이터 기반 전체 파이프라인 검증 완료, 데이터 수집 준비 완료
+
+---
+
+## 2026-03-30 작업 총괄
+
+| 항목 | 산출물 | 상태 |
+|------|--------|------|
+| 온톨로지 | ICO v0.2.0 (158 OWL 요소, 25 인과경로) | ✅ |
+| 인과추론 도구 | Ver 1.0 (SPARQL + 인과체인 + SHAP 브릿지) | ✅ |
+| 데이터 파이프라인 | 시뮬레이터 + API 수집기 + 통합테스트 5/5 | ✅ |
+| AI 모델 | TFT 9.3M params (forward + gradient 검증) | ✅ |
+| 데이터 수집 | 3-Tier 전략 + NHIS 33개 + API 2종 연동 | ✅ |
+| GitHub | https://github.com/SeunghunLee0725/project-columbus | ✅ |
+| 총 코드/문서 | 22개 파일, ~10,000줄 | ✅ |
+
 ---

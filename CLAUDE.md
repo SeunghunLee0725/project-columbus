@@ -49,20 +49,38 @@
    - `research/04_plasma_device/` - 플라즈마 디바이스 관련
 4. **참고문헌/선행연구 정리는 `references/`에 저장**
 
-### 현재 진행 상황
-- [x] 프로젝트 구조 세팅 완료 (2026-03-30)
-- [ ] 1단계 1년차 연구 착수 대기 중
+### 현재 진행 상황 (2026-03-30 기준)
+- [x] 프로젝트 구조 세팅 완료
+- [x] ICO 온톨로지 v0.2.0 (109 classes, 25 causal pathways, BFO 2.0 정렬)
+- [x] 인과추론 도구 Ver 1.0 (SPARQL 6쿼리, 인과체인 탐색, SHAP-온톨로지 브릿지)
+- [x] 데이터 파이프라인 설계 + PoC (센서 시뮬레이터, 복합지표, RDF 매퍼)
+- [x] AI 모델 아키텍처 설계 + PyTorch 프로토타입 (TFT 9.3M params, 검증 완료)
+- [x] 실시간 API 연동: 기상청 + 에어코리아 → 복합지표 → ICO 트리플 (통합테스트 5/5)
+- [x] 데이터 수집 전략 수립 (3-Tier, 33개 NHIS 공공데이터 리스트)
+- [ ] NHIS 파일데이터 다운로드 (data.go.kr 로그인 후 수동 다운로드 필요)
+- [ ] 표본코호트 2.0 DB 신청 (nhiss.nhis.or.kr, IRB 필요)
+
+### GitHub
+https://github.com/SeunghunLee0725/project-columbus
+
+### API 키
+- 기상청 단기예보: `8dbf6117...` (활성 ✅)
+- 에어코리아 대기오염: 동일 키 (활성 ✅)
+- 주의: URL에 serviceKey를 직접 포함해야 함 (requests params dict 사용 시 이중인코딩)
 
 ## 디렉토리 구조
 ```
 project_columbus/
-├── CLAUDE.md              # 이 파일 - 프로젝트 컨텍스트 & 에이전트 지침
-├── work_log.md            # 작업 일지 (자동 기록)
-├── docs/                  # 원본 제안서 및 공식 문서
-├── research/              # 연구 산출물
-│   ├── 01_ontology/       # 온톨로지 설계
-│   ├── 02_data_pipeline/  # 데이터 파이프라인
-│   ├── 03_ai_model/       # AI 모델
-│   └── 04_plasma_device/  # 플라즈마 디바이스
-└── references/            # 참고문헌/선행연구
+├── CLAUDE.md                    # 프로젝트 컨텍스트 & 에이전트 지침
+├── work_log.md                  # 작업 일지
+├── requirements.txt             # Python 의존성
+├── docs/                        # 원본 제안서 (3건)
+├── data/nhis_raw/               # NHIS 공공데이터 (수동 다운로드)
+├── research/
+│   ├── 01_ontology/             # 온톨로지 (OWL, SPARQL, 인과추론 엔진)
+│   ├── 02_data_pipeline/        # 파이프라인 (시뮬레이터, API 수집기, 통합테스트)
+│   ├── 03_ai_model/             # AI 모델 (TFT 아키텍처, PyTorch 프로토타입)
+│   ├── 04_plasma_device/        # 플라즈마 디바이스 (미착수)
+│   └── data_collection_plan.md  # 데이터 수집 전략
+└── references/                  # 선행연구, NHIS 데이터 리스트
 ```
