@@ -138,4 +138,19 @@
   - `research/01_ontology/causal_correlation_matrix.csv` (16×16 상관행렬)
 - **결과**: 1단계 핵심 목표인 인과추론 도구 Ver 1.0 구현 완료, AI 모델 아키텍처 검증 완료
 
+### GitHub 공개 + 데이터 수집 전략 수립
+- **작업**: GitHub 저장소 생성/푸시, 온톨로지 공고화를 위한 데이터 수집 계획 수립
+- **내용**:
+  1. **GitHub 공개**: https://github.com/SeunghunLee0725/project-columbus (public)
+  2. **데이터 수집 계획** (data_collection_plan.md, 1,821줄):
+     - 3-Tier 전략: 공개 데이터(0-3개월) / 자체 센서(3-9개월) / 협력기관(9-24개월)
+     - Tier 1: 12개 공개 데이터셋 (AirKorea, KMA, NHIS 코호트, KoGES, CTD 등) + API 코드
+     - Tier 2: IoT 센서 15세트 배포, 웨어러블 파일럿, 플라즈마 RONS 측정 프로토콜
+     - Tier 3: 창원대(유전자)/경북의대(동물모델)/Q-solutions(SaaS) 데이터
+     - 최소 데이터 규모 산정: 경로당 200-500관측, TFT 5,000명×90일, 클래스당 100인스턴스
+     - 4개 마일스톤: MVD-1(3개월)→MVD-4(21개월)
+     - 자동화 파이프라인: Airflow DAG, DVC 버전관리
+- **산출물**: `research/data_collection_plan.md`
+- **결과**: 데이터 수집 로드맵 확정
+
 ---
