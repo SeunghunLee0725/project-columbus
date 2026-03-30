@@ -71,7 +71,42 @@
 - **결과**: 온톨로지 v0.2.0 완성 (BFO 정렬 + 25개 인과경로), 데이터 파이프라인 설계 완료
 - **다음 단계**:
   - Protégé에서 HermiT 추론기로 일관성 검증
-  - 데이터 파이프라인 PoC 구현 (에지 게이트웨이 → Kafka → 복합지표 계산)
-  - AI 모델 아키텍처 상세 설계 (TFT + GNN)
+  - ~~데이터 파이프라인 PoC 구현 (에지 게이트웨이 → Kafka → 복합지표 계산)~~ ✅ 완료
+  - ~~AI 모델 아키텍처 상세 설계 (TFT + GNN)~~ ✅ 완료
+
+### 데이터 파이프라인 PoC + AI 모델 프로토타입
+- **작업**: 센서 시뮬레이터, 복합지표 엔진, 온톨로지 매퍼, AI 모델 아키텍처 구현
+- **내용**:
+  1. **센서 시뮬레이터** (sensor_simulator.py, 295줄):
+     - L1 환경 8채널 + L2 라이프로그 5채널 시뮬레이션
+     - 일주기 리듬, 노이즈, 오염 스파이크, 크로스레이어 상관 구현
+     - 4개 시나리오: normal, pollution_event, sleep_deprived, allergic_flare
+  2. **복합지표 계산기** (composite_index.py, 321줄):
+     - OxidativeStressLoad (PM2.5 50% + VOC 30% + O3 20%)
+     - AllergenExposureScore (습도 + 곰팡이 + 진드기 리스크)
+     - VentilationIndex (CO2 감쇠율)
+     - ImmuneRiskScore (다층 통합 면역 위험 점수)
+  3. **온톨로지 매퍼** (ontology_mapper.py, 320줄):
+     - 센서 데이터 → RDF 트리플(Turtle) 변환
+     - ICO 네임스페이스 매핑 (rdflib 기반)
+  4. **데모 파이프라인** (demo_pipeline.py, 162줄):
+     - 48시간 pollution_event 시나리오 실행 (2,880 샘플)
+     - 크로스레이어 상관 검증: PM2.5↔HRV r=-0.204, OSL↔IRS r=+0.666
+     - 741개 RDF 트리플 생성 확인
+  5. **AI 모델 아키텍처** (model_architecture.md, 881줄):
+     - Multi-task TFT: 114차원 입력, 4-horizon × 7-disease 출력
+     - 온톨로지 기반 어텐션 프라이어 (CausalPathway → attention bias)
+     - PCMCI+ 인과추론, SHAP 3-level 설명, R-GCN 온톨로지 자동생성
+  6. **PyTorch 프로토타입** (model_prototype.py, 956줄):
+     - GatedResidualNetwork, VariableSelectionNetwork, TemporalEncoder
+     - OntologyAttentionPrior, InterpretableMultiHeadAttention
+     - MultiTaskHead (4 horizons × 7 diseases + immune risk score)
+     - ImmuneTrajectoryLoss (BCE + trajectory consistency + ontology alignment)
+- **산출물**: 6개 파일, 총 2,935줄
+- **결과**: 데이터 파이프라인 PoC 실행 검증 완료, AI 모델 아키텍처 설계 완료
+- **다음 단계**:
+  - PyTorch 설치 후 모델 프로토타입 forward pass 검증
+  - 인과추론 도구 Ver 1.0 (SPARQL + SHAP 브릿지) 구현
+  - Protégé에서 OWL 일관성 검증
 
 ---
