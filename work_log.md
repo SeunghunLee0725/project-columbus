@@ -105,8 +105,37 @@
 - **산출물**: 6개 파일, 총 2,935줄
 - **결과**: 데이터 파이프라인 PoC 실행 검증 완료, AI 모델 아키텍처 설계 완료
 - **다음 단계**:
-  - PyTorch 설치 후 모델 프로토타입 forward pass 검증
-  - 인과추론 도구 Ver 1.0 (SPARQL + SHAP 브릿지) 구현
-  - Protégé에서 OWL 일관성 검증
+  - ~~PyTorch 설치 후 모델 프로토타입 forward pass 검증~~ ✅ 완료
+  - ~~인과추론 도구 Ver 1.0 (SPARQL + SHAP 브릿지) 구현~~ ✅ 완료
+  - ~~Protégé에서 OWL 일관성 검증~~ ✅ causal_knowledge_base.py로 자동 검증 완료
+
+### 인과추론 도구 Ver 1.0 + PyTorch 모델 검증
+- **작업**: 인과추론 엔진 구현, 지식베이스 보강/검증, PyTorch 모델 실행
+- **내용**:
+  1. **인과추론 엔진** (causal_reasoning_engine.py):
+     - OWL 로딩 → 821 RDF 트리플, 19 인과경로, 18노드 17엣지 인과그래프
+     - SPARQL 6개 쿼리 전부 실행 검증 완료
+       - Q1: PM2.5 → 6개 경로 (IL-6, TNF-α, 8-OHdG, CRP, SpO2, HRV)
+       - Q2: NO+OH RONS 면역효과 (NF-κB 억제)
+       - Q3: 알레르기 마치 5단계 순서
+       - Q5: 건선 플라즈마 치료 (CAP Patch, Published)
+       - Q6: |r|>0.3 상관관계 네트워크 (13개)
+     - 인과체인 탐색: PM2.5→TNF-α→Psoriasis (r=0.225, 14.6일)
+     - 한국어/영어 이중언어 설명 생성
+     - SHAP-온톨로지 브릿지: 방향 일관성 검사 + 환경 권고 생성
+  2. **인과 지식베이스** (causal_knowledge_base.py):
+     - 온톨로지 보강: 46 추론 트리플 추가 (추이적 폐쇄 6개, 역관계, 크로스레이어 복합경로)
+     - 일관성 검증: 순환경로 0, 누락정의 0, 고립인스턴스 0 ✅
+     - 인과 상관 행렬 CSV 내보내기 (16×16 행렬)
+  3. **PyTorch 모델 실행 검증**:
+     - 9,265,196 파라미터
+     - Forward pass: (8, 4, 7) disease risks + (8, 1) immune risk score ✅
+     - 출력 범위: disease_risks [0.40-0.67], immune_risk [38.5-45.0] ✅
+     - 3-step training: gradient flow 검증 (1,312/1,312 파라미터) ✅
+- **산출물**:
+  - `research/01_ontology/causal_reasoning_engine.py` (인과추론 도구 Ver 1.0)
+  - `research/01_ontology/causal_knowledge_base.py` (지식베이스 보강/검증)
+  - `research/01_ontology/causal_correlation_matrix.csv` (16×16 상관행렬)
+- **결과**: 1단계 핵심 목표인 인과추론 도구 Ver 1.0 구현 완료, AI 모델 아키텍처 검증 완료
 
 ---
