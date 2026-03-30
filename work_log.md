@@ -31,14 +31,47 @@
 - **산출물**:
   - `research/01_ontology/domain_analysis.md`
   - `research/01_ontology/ontology_architecture.md`
-  - `research/01_ontology/immune_care_ontology.owl` (v0.1.0)
+  - `research/01_ontology/immune_care_ontology.owl` (v0.1.0 → v0.2.0)
   - `research/01_ontology/sparql_templates.rq`
   - `references/ontology_survey.md`
 - **결과**: 면역 케어 온톨로지 초기 스키마 완성 (Protégé 로딩 가능)
 - **다음 단계**:
   - OWL 파일에 BFO 2.0 import 추가 및 기존 온톨로지 MIREOT 연결
-  - 인과 경로 인스턴스 확장 (제안서의 모든 상관관계 데이터 반영)
+  - ~~인과 경로 인스턴스 확장 (제안서의 모든 상관관계 데이터 반영)~~ ✅ 완료
   - Protégé에서 HermiT 추론기로 일관성 검증
-  - Layer 2 데이터 파이프라인 설계 착수
+  - ~~Layer 2 데이터 파이프라인 설계 착수~~ ✅ 완료
+
+### OWL v0.2.0 업그레이드 + 데이터 파이프라인 설계
+- **작업**: BFO 정렬, 외부 온톨로지 MIREOT 연결, 인과경로 인스턴스 확장, 데이터 파이프라인 아키텍처 설계
+- **내용**:
+  1. **BFO 2.0 정렬**: owl:imports 추가, 10개 핵심 클래스에 BFO 상위 클래스 매핑
+     - Independent Continuant: Patient, EnvironmentalFactor, ReactiveSpecies, CAPDevice
+     - Specifically Dependent Continuant: Biomarker
+     - Process: LifelogObservation, SignalingPathway, PlasmaExposureEvent, DiseaseTrajectory
+     - Disposition: ImmuneDisease
+  2. **외부 온톨로지 MIREOT 스텁**: DO(DOID:2914), GO(GO:0006955, GO:0006954, GO:0000302), ChEBI(6종 RONS), Reactome(NF-κB, Cytokine signaling)
+  3. **새 프로퍼티 추가**: hasSourceFactor, hasTargetFactor, involvesPathway, hasSourceLayer, hasTargetLayer, hasEvidenceStrength (6개)
+  4. **인과경로 인스턴스 확장** (3개 → 25개):
+     - L1→L3: 6개 (PM2.5→IL-6, PM2.5→TNF-α, PM2.5→8-OHdG, PM2.5→CRP, VOCs→IgE, RH→IL-13)
+     - L1→L2: 3개 (PM2.5→HRV, PM2.5→SpO2, VOCs→수면)
+     - L2→L3: 3개 (HRV→IL-6, 수면부족→CRP, 비활동→TNF-α)
+     - L3→Disease: 4개 (IL-4/IL-13→아토피, IgE+IL-5→천식, TNF-α+IL-17→건선, 복합→알레르기마치)
+     - L4→L3: 3개 (CAP NO→NF-κB 억제, CAP→Nrf2, CAP패치→건선 치료)
+     - 알레르기 마치 궤적 5단계 인스턴스
+  5. **데이터 파이프라인 아키텍처** (921줄):
+     - Lambda Architecture: Kafka+Flink(hot) / Airflow+Spark(cold)
+     - 5종 IoT 센서 수집 전략 (SPS30, SGP41, SCD41, BME680, GC-PID)
+     - 3-tier 시간 정렬 (micro/meso/macro)
+     - 온톨로지 인스턴스 생성 파이프라인 (YARRRML/Morph-KGC → GraphDB)
+     - AI/ML: 114차원 특징 행렬, Multi-task TFT 모델, SHAP-온톨로지 브릿지
+     - 30+ 컴포넌트 기술 스택 권고
+- **산출물**:
+  - `research/01_ontology/immune_care_ontology.owl` (v0.2.0 — 158개 OWL 요소)
+  - `research/02_data_pipeline/data_pipeline_architecture.md` (921줄)
+- **결과**: 온톨로지 v0.2.0 완성 (BFO 정렬 + 25개 인과경로), 데이터 파이프라인 설계 완료
+- **다음 단계**:
+  - Protégé에서 HermiT 추론기로 일관성 검증
+  - 데이터 파이프라인 PoC 구현 (에지 게이트웨이 → Kafka → 복합지표 계산)
+  - AI 모델 아키텍처 상세 설계 (TFT + GNN)
 
 ---

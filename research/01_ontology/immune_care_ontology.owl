@@ -1,4 +1,8 @@
 <?xml version="1.0"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY ico "http://purl.obolibrary.org/obo/ICO#">
+    <!ENTITY obo "http://purl.obolibrary.org/obo/">
+]>
 <rdf:RDF xmlns="http://purl.obolibrary.org/obo/ICO#"
      xml:base="http://purl.obolibrary.org/obo/ICO"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -25,8 +29,123 @@
         <dc:description xml:lang="en">A multi-dimensional ontology integrating environmental, lifelog, and biomarker data for immune disease trajectory prediction and plasma medicine-based treatment.</dc:description>
         <dc:creator>Seunghoon Lee</dc:creator>
         <dc:contributor>KIMS (Korea Institute of Materials Science)</dc:contributor>
-        <owl:versionInfo>0.1.0</owl:versionInfo>
+        <dc:rights>CC-BY 4.0</dc:rights>
+        <owl:versionInfo>0.2.0</owl:versionInfo>
+
+        <!-- BFO 2.0 Upper Ontology (ISO/IEC 21838-2:2021) -->
+        <owl:imports rdf:resource="http://purl.obolibrary.org/obo/bfo.owl"/>
+
+        <!-- External Ontology References (MIREOT pattern - import selected terms) -->
+        <!-- Disease Ontology: immune system diseases -->
+        <rdfs:comment>MIREOT: obo:DOID_2914 (immune system disease) subtree from Disease Ontology</rdfs:comment>
+        <!-- Gene Ontology: immune response processes -->
+        <rdfs:comment>MIREOT: obo:GO_0006955 (immune response), obo:GO_0000302 (response to ROS) from Gene Ontology</rdfs:comment>
+        <!-- ChEBI: reactive species -->
+        <rdfs:comment>MIREOT: obo:CHEBI_26523 (ROS), obo:CHEBI_62764 (RNS) subtrees from ChEBI</rdfs:comment>
+        <!-- ENVO: environmental factors -->
+        <rdfs:comment>MIREOT: environmental material and atmospheric feature classes from ENVO</rdfs:comment>
+        <!-- ExO: exposure modeling -->
+        <rdfs:comment>MIREOT: exposure event, stressor, route classes from Exposure Ontology</rdfs:comment>
     </owl:Ontology>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- BFO 2.0 ALIGNMENT — Top-level class mappings                   -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- BFO:0000004 Independent Continuant -->
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/BFO_0000004">
+        <rdfs:label>independent continuant</rdfs:label>
+    </owl:Class>
+
+    <!-- BFO:0000020 Specifically Dependent Continuant (qualities) -->
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/BFO_0000020">
+        <rdfs:label>specifically dependent continuant</rdfs:label>
+    </owl:Class>
+
+    <!-- BFO:0000015 Process -->
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/BFO_0000015">
+        <rdfs:label>process</rdfs:label>
+    </owl:Class>
+
+    <!-- BFO:0000016 Disposition -->
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/BFO_0000016">
+        <rdfs:label>disposition</rdfs:label>
+    </owl:Class>
+
+    <!-- External Ontology Reference Classes (MIREOT stubs) -->
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/DOID_2914">
+        <rdfs:label>immune system disease</rdfs:label>
+        <rdfs:comment>From Disease Ontology. Root class for all immune diseases.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/GO_0006955">
+        <rdfs:label>immune response</rdfs:label>
+        <rdfs:comment>From Gene Ontology. Biological process of immune system activation.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/GO_0006954">
+        <rdfs:label>inflammatory response</rdfs:label>
+        <rdfs:comment>From Gene Ontology.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/GO_0000302">
+        <rdfs:label>response to reactive oxygen species</rdfs:label>
+        <rdfs:comment>From Gene Ontology. Directly relevant to RONS-immune axis.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_26523">
+        <rdfs:label>reactive oxygen species</rdfs:label>
+        <rdfs:comment>From ChEBI. Chemical classification of ROS.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_62764">
+        <rdfs:label>reactive nitrogen species</rdfs:label>
+        <rdfs:comment>From ChEBI. Chemical classification of RNS.</rdfs:comment>
+    </owl:Class>
+
+    <!-- ChEBI specific RONS species referenced in our ontology -->
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_16240">
+        <rdfs:label>hydrogen peroxide</rdfs:label>
+        <rdfs:comment>H2O2 — key signaling molecule for NF-κB activation. ChEBI:16240.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_29191">
+        <rdfs:label>hydroxyl radical</rdfs:label>
+        <rdfs:comment>•OH — highly reactive ROS. ChEBI:29191.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_16480">
+        <rdfs:label>nitric oxide</rdfs:label>
+        <rdfs:comment>NO• — vasodilation, macrophage signaling. ChEBI:16480.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_25812">
+        <rdfs:label>ozone</rdfs:label>
+        <rdfs:comment>O3 — antimicrobial, inflammatory modulator. ChEBI:25812.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_26689">
+        <rdfs:label>singlet oxygen</rdfs:label>
+        <rdfs:comment>¹O2 — photodynamic effects. ChEBI:26689.</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CHEBI_25941">
+        <rdfs:label>peroxynitrite</rdfs:label>
+        <rdfs:comment>ONOO⁻ — protein nitration, cytotoxicity. ChEBI:25941.</rdfs:comment>
+    </owl:Class>
+
+    <!-- Reactome pathway references -->
+    <owl:Class rdf:about="&ico;ReactomeNFkB">
+        <rdfs:label>NF-κB Signaling (Reactome)</rdfs:label>
+        <rdfs:comment>Reactome:R-HSA-9607240. NF-κB signaling pathway.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="https://reactome.org/content/detail/R-HSA-9607240"/>
+    </owl:Class>
+
+    <owl:Class rdf:about="&ico;ReactomeCytokineSignaling">
+        <rdfs:label>Cytokine Signaling (Reactome)</rdfs:label>
+        <rdfs:comment>Reactome:R-HSA-1280215. Cytokine signaling in immune system.</rdfs:comment>
+        <rdfs:seeAlso rdf:resource="https://reactome.org/content/detail/R-HSA-1280215"/>
+    </owl:Class>
 
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <!-- ANNOTATION PROPERTIES                                          -->
@@ -116,6 +235,25 @@
         <rdfs:range rdf:resource="&ico;LifelogObservation"/>
     </owl:ObjectProperty>
 
+    <owl:ObjectProperty rdf:about="&ico;hasSourceFactor">
+        <rdfs:label>has source factor</rdfs:label>
+        <obo:IAO_0000115>The originating factor (cause) in a causal pathway.</obo:IAO_0000115>
+        <rdfs:domain rdf:resource="&ico;CausalPathway"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&ico;hasTargetFactor">
+        <rdfs:label>has target factor</rdfs:label>
+        <obo:IAO_0000115>The resulting factor (effect) in a causal pathway.</obo:IAO_0000115>
+        <rdfs:domain rdf:resource="&ico;CausalPathway"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="&ico;involvesPathway">
+        <rdfs:label>involves pathway</rdfs:label>
+        <obo:IAO_0000115>The signaling pathway mediating a causal relationship.</obo:IAO_0000115>
+        <rdfs:domain rdf:resource="&ico;CausalPathway"/>
+        <rdfs:range rdf:resource="&ico;SignalingPathway"/>
+    </owl:ObjectProperty>
+
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <!-- DATA PROPERTIES                                                -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -146,6 +284,24 @@
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
     </owl:DatatypeProperty>
 
+    <owl:DatatypeProperty rdf:about="&ico;hasSourceLayer">
+        <rdfs:label>has source layer</rdfs:label>
+        <obo:IAO_0000115>The originating layer (L1=Environment, L2=Lifelog, L3=Biomarker, L4=Plasma).</obo:IAO_0000115>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&ico;hasTargetLayer">
+        <rdfs:label>has target layer</rdfs:label>
+        <obo:IAO_0000115>The target layer (L2=Lifelog, L3=Biomarker, Disease).</obo:IAO_0000115>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="&ico;hasEvidenceStrength">
+        <rdfs:label>has evidence strength</rdfs:label>
+        <obo:IAO_0000115>Evidence level: Strong, Moderate, Emerging, Planned, Published.</obo:IAO_0000115>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+
     <owl:DatatypeProperty rdf:about="&ico;hasSelectivityRatio">
         <rdfs:label>has selectivity ratio</rdfs:label>
         <obo:IAO_0000115>Ratio of desired to undesired RONS species generated by plasma device.</obo:IAO_0000115>
@@ -164,6 +320,7 @@
     <owl:Class rdf:about="&ico;EnvironmentalFactor">
         <rdfs:label>Environmental Factor</rdfs:label>
         <ico:koreanLabel>환경 요인</ico:koreanLabel>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000004"/>
         <obo:IAO_0000115>An environmental agent or condition that may affect immune system function.</obo:IAO_0000115>
     </owl:Class>
 
@@ -322,6 +479,7 @@
     <owl:Class rdf:about="&ico;LifelogObservation">
         <rdfs:label>Lifelog Observation</rdfs:label>
         <ico:koreanLabel>라이프로그 관측</ico:koreanLabel>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
         <obo:IAO_0000115>A biosignal measurement captured from a wearable device or personal health sensor.</obo:IAO_0000115>
     </owl:Class>
 
@@ -373,6 +531,7 @@
     <owl:Class rdf:about="&ico;Biomarker">
         <rdfs:label>Biomarker</rdfs:label>
         <ico:koreanLabel>바이오마커</ico:koreanLabel>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000020"/>
         <obo:IAO_0000115>A measurable biological indicator of immune system state or disease trajectory.</obo:IAO_0000115>
     </owl:Class>
 
@@ -489,6 +648,7 @@
     <owl:Class rdf:about="&ico;SignalingPathway">
         <rdfs:label>Signaling Pathway</rdfs:label>
         <ico:koreanLabel>신호전달 경로</ico:koreanLabel>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
         <obo:IAO_0000115>A molecular signaling cascade that mediates immune response.</obo:IAO_0000115>
     </owl:Class>
 
@@ -554,6 +714,7 @@
     <owl:Class rdf:about="&ico;ColdAtmosphericPlasmaDevice">
         <rdfs:label>Cold Atmospheric Plasma Device</rdfs:label>
         <ico:koreanLabel>저온 대기압 플라즈마 기기</ico:koreanLabel>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000004"/>
         <obo:IAO_0000115>A device generating non-thermal plasma at atmospheric pressure for biomedical applications. Includes CAP patches, portable generators, and porous ceramic dielectric devices.</obo:IAO_0000115>
     </owl:Class>
 
@@ -588,6 +749,7 @@
     <owl:Class rdf:about="&ico;ReactiveSpecies">
         <rdfs:label>Reactive Species</rdfs:label>
         <ico:koreanLabel>활성종</ico:koreanLabel>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000004"/>
         <obo:IAO_0000115>Reactive oxygen and nitrogen species (RONS) generated by cold atmospheric plasma or biological processes.</obo:IAO_0000115>
     </owl:Class>
 
@@ -649,6 +811,7 @@
     <owl:Class rdf:about="&ico;PlasmaExposureEvent">
         <rdfs:label>Plasma Exposure Event</rdfs:label>
         <ico:koreanLabel>플라즈마 노출 사건</ico:koreanLabel>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
         <obo:IAO_0000115>A single instance of cold atmospheric plasma treatment application to a patient or biological target.</obo:IAO_0000115>
     </owl:Class>
 
@@ -691,11 +854,15 @@
     <owl:Class rdf:about="&ico;Patient">
         <rdfs:label>Patient</rdfs:label>
         <ico:koreanLabel>환자</ico:koreanLabel>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000004"/>
+        <obo:IAO_0000115>A human individual whose immune status is being monitored and/or treated.</obo:IAO_0000115>
     </owl:Class>
 
     <owl:Class rdf:about="&ico;ImmuneDisease">
         <rdfs:label>Immune Disease</rdfs:label>
         <ico:koreanLabel>면역 질환</ico:koreanLabel>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000016"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/DOID_2914"/>
         <obo:IAO_0000115>A disease of the immune system. Corresponds to DO DOID:2914 subtree.</obo:IAO_0000115>
     </owl:Class>
 
@@ -752,6 +919,7 @@
     <owl:Class rdf:about="&ico;DiseaseTrajectory">
         <rdfs:label>Disease Trajectory</rdfs:label>
         <ico:koreanLabel>질병 궤적</ico:koreanLabel>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000015"/>
         <obo:IAO_0000115>A temporal model of immune system state changes connecting environmental exposure and immune response over time to predict disease onset, aggravation, and treatment pathways. The 'health compass' showing where immunity stands and where it is heading.</obo:IAO_0000115>
     </owl:Class>
 
@@ -792,31 +960,312 @@
     <!-- CROSS-LAYER CORRELATION INSTANCES                              -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
 
-    <!-- Example: PM2.5 → IL-6 causal path -->
+    <!-- ─────────────────────────────────────────────────────────────── -->
+    <!-- L1 → L3: Environment to Biomarker (6 pathways)                 -->
+    <!-- ─────────────────────────────────────────────────────────────── -->
+
     <owl:NamedIndividual rdf:about="&ico;PM2_5_to_IL6_Path">
         <rdf:type rdf:resource="&ico;CausalPathway"/>
-        <rdfs:label>PM2.5 → NF-κB → IL-6 Pathway</rdfs:label>
+        <rdfs:label>PM2.5 → NF-κB → IL-6</rdfs:label>
         <ico:koreanLabel>PM2.5 → NF-κB → IL-6 경로</ico:koreanLabel>
-        <obo:IAO_0000115>PM2.5 → ROS generation → NF-κB activation → IL-6 transcription. Correlation r=+0.52, lag 6-24h.</obo:IAO_0000115>
+        <obo:IAO_0000115>PM2.5 → ROS generation → NF-κB activation → IL-6 transcription.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L1</ico:hasSourceLayer>
+        <ico:hasTargetLayer>L3</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;PM2_5"/>
+        <ico:hasTargetFactor rdf:resource="&ico;IL6"/>
+        <ico:involvesPathway rdf:resource="&ico;NFkBPathway"/>
         <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.52</ico:hasCorrelationCoefficient>
         <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">15.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Strong</ico:hasEvidenceStrength>
     </owl:NamedIndividual>
 
-    <!-- Example: PM2.5 → HRV correlation -->
-    <owl:NamedIndividual rdf:about="&ico;PM2_5_to_HRV_Correlation">
+    <owl:NamedIndividual rdf:about="&ico;PM2_5_to_TNFa_Path">
         <rdf:type rdf:resource="&ico;CausalPathway"/>
-        <rdfs:label>PM2.5 → HRV (SDNN) Decrease</rdfs:label>
-        <obo:IAO_0000115>PM2.5 → autonomic imbalance → vagal tone decrease → SDNN drop. r=-0.42, lag 2-6h.</obo:IAO_0000115>
+        <rdfs:label>PM2.5 → M1 macrophage → TNF-α</rdfs:label>
+        <ico:koreanLabel>PM2.5 → M1 대식세포 → TNF-α 경로</ico:koreanLabel>
+        <obo:IAO_0000115>PM2.5 → alveolar macrophage M1 polarization → TNF-α release.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L1</ico:hasSourceLayer>
+        <ico:hasTargetLayer>L3</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;PM2_5"/>
+        <ico:hasTargetFactor rdf:resource="&ico;TNFAlpha"/>
+        <ico:involvesPathway rdf:resource="&ico;NFkBPathway"/>
+        <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.45</ico:hasCorrelationCoefficient>
+        <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">15.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Strong</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;PM2_5_to_8OHdG_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>PM2.5 → mitochondrial ROS → 8-OHdG</rdfs:label>
+        <obo:IAO_0000115>PM2.5 → mitochondrial ROS → DNA oxidative damage via 8-OHdG.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L1</ico:hasSourceLayer>
+        <ico:hasTargetLayer>L3</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;PM2_5"/>
+        <ico:hasTargetFactor rdf:resource="&ico;OHdG_8"/>
+        <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.48</ico:hasCorrelationCoefficient>
+        <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">48.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Strong</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;PM2_5_to_CRP_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>PM2.5 → systemic inflammation → CRP</rdfs:label>
+        <obo:IAO_0000115>PM2.5 → systemic inflammation spillover → hepatic CRP synthesis.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L1</ico:hasSourceLayer>
+        <ico:hasTargetLayer>L3</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;PM2_5"/>
+        <ico:hasTargetFactor rdf:resource="&ico;CRP"/>
+        <ico:involvesPathway rdf:resource="&ico;NFkBPathway"/>
+        <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.38</ico:hasCorrelationCoefficient>
+        <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">60.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Strong</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;VOCs_to_IgE_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>VOCs → epithelial barrier → Th2 → IgE</rdfs:label>
+        <obo:IAO_0000115>VOCs → epithelial barrier disruption → Th2 skew → IgE class switch.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L1</ico:hasSourceLayer>
+        <ico:hasTargetLayer>L3</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;VolatileOrganicCompound"/>
+        <ico:hasTargetFactor rdf:resource="&ico;IgE"/>
+        <ico:involvesPathway rdf:resource="&ico;Th1Th2Balance"/>
+        <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.35</ico:hasCorrelationCoefficient>
+        <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">504.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Moderate</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;RH_to_IL13_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>High RH → dust mite → Der p1 → IL-13</rdfs:label>
+        <obo:IAO_0000115>High relative humidity → dust mite proliferation → Der p1 antigen → IL-13 via Th2.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L1</ico:hasSourceLayer>
+        <ico:hasTargetLayer>L3</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;RelativeHumidity"/>
+        <ico:hasTargetFactor rdf:resource="&ico;IL13"/>
+        <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.30</ico:hasCorrelationCoefficient>
+        <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">72.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Moderate</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <!-- ─────────────────────────────────────────────────────────────── -->
+    <!-- L1 → L2: Environment to Lifelog (3 pathways)                   -->
+    <!-- ─────────────────────────────────────────────────────────────── -->
+
+    <owl:NamedIndividual rdf:about="&ico;PM2_5_to_HRV_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>PM2.5 → autonomic imbalance → HRV decrease</rdfs:label>
+        <obo:IAO_0000115>PM2.5 → autonomic imbalance → vagal tone decrease → SDNN drop.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L1</ico:hasSourceLayer>
+        <ico:hasTargetLayer>L2</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;PM2_5"/>
+        <ico:hasTargetFactor rdf:resource="&ico;HRVMeasurement"/>
         <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.42</ico:hasCorrelationCoefficient>
         <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Strong</ico:hasEvidenceStrength>
     </owl:NamedIndividual>
 
-    <!-- Example: Allergic March trajectory -->
+    <owl:NamedIndividual rdf:about="&ico;PM2_5_to_SpO2_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>PM2.5 → airway inflammation → SpO2 decrease</rdfs:label>
+        <obo:IAO_0000115>PM2.5 → airway inflammation → V/Q mismatch → SpO2 decrease.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L1</ico:hasSourceLayer>
+        <ico:hasTargetLayer>L2</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;PM2_5"/>
+        <ico:hasTargetFactor rdf:resource="&ico;SpO2Measurement"/>
+        <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.25</ico:hasCorrelationCoefficient>
+        <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Moderate</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;VOCs_to_Sleep_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>VOCs → airway irritation → sleep disruption</rdfs:label>
+        <obo:IAO_0000115>VOCs → upper airway irritation → sleep fragmentation → deep sleep decrease.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L1</ico:hasSourceLayer>
+        <ico:hasTargetLayer>L2</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;VolatileOrganicCompound"/>
+        <ico:hasTargetFactor rdf:resource="&ico;SleepQualityAssessment"/>
+        <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.32</ico:hasCorrelationCoefficient>
+        <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">6.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Moderate</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <!-- ─────────────────────────────────────────────────────────────── -->
+    <!-- L2 → L3: Lifelog to Biomarker (3 pathways)                     -->
+    <!-- ─────────────────────────────────────────────────────────────── -->
+
+    <owl:NamedIndividual rdf:about="&ico;HRV_to_IL6_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>Low HRV → weakened vagal reflex → IL-6 increase</rdfs:label>
+        <obo:IAO_0000115>Low vagal tone → cholinergic anti-inflammatory reflex weakened → IL-6 upregulation.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L2</ico:hasSourceLayer>
+        <ico:hasTargetLayer>L3</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;HRVMeasurement"/>
+        <ico:hasTargetFactor rdf:resource="&ico;IL6"/>
+        <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.42</ico:hasCorrelationCoefficient>
+        <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">6.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Strong</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;SleepDeprivation_to_CRP_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>Sleep deprivation → HPA axis → CRP elevation</rdfs:label>
+        <obo:IAO_0000115>Sleep loss → HPA axis activation → cortisol dysregulation → CRP elevation.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L2</ico:hasSourceLayer>
+        <ico:hasTargetLayer>L3</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;SleepQualityAssessment"/>
+        <ico:hasTargetFactor rdf:resource="&ico;CRP"/>
+        <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.38</ico:hasCorrelationCoefficient>
+        <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">36.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Strong</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;LowActivity_to_TNFa_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>Low activity → adipokine → TNF-α elevation</rdfs:label>
+        <obo:IAO_0000115>Sedentary → adipose tissue expansion → adipokine-mediated TNF-α.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L2</ico:hasSourceLayer>
+        <ico:hasTargetLayer>L3</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;PhysicalActivityLevel"/>
+        <ico:hasTargetFactor rdf:resource="&ico;TNFAlpha"/>
+        <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.28</ico:hasCorrelationCoefficient>
+        <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">72.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Emerging</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <!-- ─────────────────────────────────────────────────────────────── -->
+    <!-- L3 → Disease: Biomarker to Disease Trajectory (4 pathways)     -->
+    <!-- ─────────────────────────────────────────────────────────────── -->
+
+    <owl:NamedIndividual rdf:about="&ico;IL4_IL13_to_AtopicDerm_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>IL-4/IL-13 high → filaggrin loss → Atopic Dermatitis</rdfs:label>
+        <obo:IAO_0000115>Th2 cytokine → filaggrin downregulation → barrier dysfunction → AD flare.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L3</ico:hasSourceLayer>
+        <ico:hasTargetLayer>Disease</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;IL13"/>
+        <ico:hasTargetFactor rdf:resource="&ico;AtopicDermatitis"/>
+        <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.58</ico:hasCorrelationCoefficient>
+        <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">336.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Strong</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;IgE_IL5_to_Asthma_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>IgE + IL-5 → eosinophil → Asthma</rdfs:label>
+        <obo:IAO_0000115>IgE sensitization → eosinophil recruitment (IL-5) → airway hyperreactivity → asthma.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L3</ico:hasSourceLayer>
+        <ico:hasTargetLayer>Disease</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;IgE"/>
+        <ico:hasTargetFactor rdf:resource="&ico;Asthma"/>
+        <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.55</ico:hasCorrelationCoefficient>
+        <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2160.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Strong</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;TNFa_IL17_to_Psoriasis_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>TNF-α + IL-17 → keratinocyte → Psoriasis</rdfs:label>
+        <obo:IAO_0000115>Th17/TNF-α axis → keratinocyte hyperproliferation → plaque formation.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L3</ico:hasSourceLayer>
+        <ico:hasTargetLayer>Disease</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;TNFAlpha"/>
+        <ico:hasTargetFactor rdf:resource="&ico;Psoriasis"/>
+        <ico:involvesPathway rdf:resource="&ico;Th17Pathway"/>
+        <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.50</ico:hasCorrelationCoefficient>
+        <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">336.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Strong</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;CompositeScore_to_AllergicMarch_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>Multi-layer composite → Allergic March trajectory</rdfs:label>
+        <obo:IAO_0000115>Multi-layer fusion: Env + Lifelog + Biomarker → disease trajectory. Target AUC ≥ 0.85.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L1+L2+L3</ico:hasSourceLayer>
+        <ico:hasTargetLayer>Disease</ico:hasTargetLayer>
+        <ico:hasTargetFactor rdf:resource="&ico;AllergicMarch"/>
+        <ico:hasCorrelationCoefficient rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.62</ico:hasCorrelationCoefficient>
+        <ico:hasLagTime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">17520.0</ico:hasLagTime>
+        <ico:hasEvidenceStrength>Target</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <!-- ─────────────────────────────────────────────────────────────── -->
+    <!-- L4 → L3: Plasma Treatment to Biomarker (3 key pathways)        -->
+    <!-- ─────────────────────────────────────────────────────────────── -->
+
+    <owl:NamedIndividual rdf:about="&ico;CAP_NFkB_Inhibition_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>CAP NO → S-nitrosylation → NF-κB inhibition</rdfs:label>
+        <obo:IAO_0000115>Plasma NO at low dose → S-nitrosylation of NF-κB → anti-inflammatory effect → IL-6 decrease.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L4</ico:hasSourceLayer>
+        <ico:hasTargetLayer>L3</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;NitricOxide"/>
+        <ico:hasTargetFactor rdf:resource="&ico;IL6"/>
+        <ico:involvesPathway rdf:resource="&ico;NFkBPathway"/>
+        <ico:hasEvidenceStrength>Planned</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;CAP_Nrf2_Activation_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>CAP low-dose ROS → Nrf2 → antioxidant defense</rdfs:label>
+        <obo:IAO_0000115>RONS hormesis → Keap1 oxidation → Nrf2 nuclear translocation → ARE activation → HO-1/SOD/catalase upregulation.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L4</ico:hasSourceLayer>
+        <ico:hasTargetLayer>L3</ico:hasTargetLayer>
+        <ico:involvesPathway rdf:resource="&ico;Nrf2Keap1Pathway"/>
+        <ico:hasEvidenceStrength>Planned</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;CAP_Psoriasis_Treatment_Path">
+        <rdf:type rdf:resource="&ico;CausalPathway"/>
+        <rdfs:label>CAP Patch (630ns) → Th17/TNF-α modulation → Psoriasis treatment</rdfs:label>
+        <obo:IAO_0000115>CAP patch → selective RONS → Th17/TNF-α axis modulation → psoriasis plaque reduction. Published: Adv Sci 2022, IF 14.3.</obo:IAO_0000115>
+        <ico:hasSourceLayer>L4</ico:hasSourceLayer>
+        <ico:hasTargetLayer>Disease</ico:hasTargetLayer>
+        <ico:hasSourceFactor rdf:resource="&ico;CAPPatch"/>
+        <ico:hasTargetFactor rdf:resource="&ico;Psoriasis"/>
+        <ico:involvesPathway rdf:resource="&ico;Th17Pathway"/>
+        <ico:hasEvidenceStrength>Published</ico:hasEvidenceStrength>
+    </owl:NamedIndividual>
+
+    <!-- ─────────────────────────────────────────────────────────────── -->
+    <!-- ALLERGIC MARCH TRAJECTORY STAGES                               -->
+    <!-- ─────────────────────────────────────────────────────────────── -->
+
     <owl:NamedIndividual rdf:about="&ico;AllergicMarch_Trajectory">
         <rdf:type rdf:resource="&ico;AllergicMarch"/>
         <rdfs:label>Standard Allergic March Progression</rdfs:label>
         <ico:koreanLabel>표준 알레르기 마치 진행</ico:koreanLabel>
         <obo:IAO_0000115>AD(L20) → Asthma(J45) → AR(J30) → Psoriasis(L40) → Dry Eye(H04.1). Composite prediction r=+0.62, target AUC ≥ 0.85.</obo:IAO_0000115>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;AM_Stage1_AD">
+        <rdf:type rdf:resource="&ico;TrajectoryStage"/>
+        <rdfs:label>Allergic March Stage 1: Atopic Dermatitis (L20)</rdfs:label>
+        <ico:precedes rdf:resource="&ico;AM_Stage2_Asthma"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;AM_Stage2_Asthma">
+        <rdf:type rdf:resource="&ico;TrajectoryStage"/>
+        <rdfs:label>Allergic March Stage 2: Asthma (J45)</rdfs:label>
+        <ico:precedes rdf:resource="&ico;AM_Stage3_AR"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;AM_Stage3_AR">
+        <rdf:type rdf:resource="&ico;TrajectoryStage"/>
+        <rdfs:label>Allergic March Stage 3: Allergic Rhinitis (J30)</rdfs:label>
+        <ico:precedes rdf:resource="&ico;AM_Stage4_Psoriasis"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;AM_Stage4_Psoriasis">
+        <rdf:type rdf:resource="&ico;TrajectoryStage"/>
+        <rdfs:label>Allergic March Stage 4: Psoriasis (L40)</rdfs:label>
+        <ico:precedes rdf:resource="&ico;AM_Stage5_DryEye"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="&ico;AM_Stage5_DryEye">
+        <rdf:type rdf:resource="&ico;TrajectoryStage"/>
+        <rdfs:label>Allergic March Stage 5: Dry Eye Disease (H04.1)</rdfs:label>
     </owl:NamedIndividual>
 
 </rdf:RDF>
