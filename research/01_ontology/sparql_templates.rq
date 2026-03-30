@@ -1,0 +1,95 @@
+# ═══════════════════════════════════════════════════════════════
+# SPARQL Query Templates for Immune Care Ontology (ICO)
+# Version: 0.1.0
+# Project: Digital Columbus — KIMS
+# ═══════════════════════════════════════════════════════════════
+
+PREFIX ico: <http://purl.obolibrary.org/obo/ICO#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# ─────────────────────────────────────────────────────────────
+# Q1: 특정 환경요인이 활성화하는 면역 경로 조회
+# "PM2.5가 어떤 신호전달 경로를 활성화하는가?"
+# ─────────────────────────────────────────────────────────────
+# SELECT ?envFactor ?pathway ?cytokine ?correlation ?lagTime
+# WHERE {
+#     ?envFactor a ico:EnvironmentalFactor ;
+#                rdfs:label "PM2.5"@en .
+#     ?causalPath a ico:CausalPathway ;
+#                 ico:hasCorrelationCoefficient ?correlation ;
+#                 ico:hasLagTime ?lagTime .
+#     # Traverse: envFactor → pathway → cytokine
+# }
+
+# ─────────────────────────────────────────────────────────────
+# Q2: 특정 RONS 조합이 제어하는 면역 반응 경로 조회
+# "NO + OH 조합은 어떤 경로로 면역을 조절하는가?"
+# (인과추론 도구 Ver 1.0 핵심 쿼리)
+# ─────────────────────────────────────────────────────────────
+# SELECT ?rons ?pathway ?effect ?disease
+# WHERE {
+#     ?rons a ico:ReactiveSpecies ;
+#           rdfs:label ?ronsLabel .
+#     FILTER (?ronsLabel IN ("Nitric Oxide", "Hydroxyl Radical"))
+#     ?rons ico:activatesPathway ?pathway .
+#     ?pathway ico:modulatesImmune ?effect .
+#     ?effect ico:treatedBy ?treatment .
+# }
+
+# ─────────────────────────────────────────────────────────────
+# Q3: 질병 궤적 단계 순서 조회
+# "알레르기 마치의 단계별 진행 순서는?"
+# ─────────────────────────────────────────────────────────────
+# SELECT ?stage ?nextStage ?disease ?icdCode
+# WHERE {
+#     ?trajectory a ico:AllergicMarch .
+#     ?trajectory ico:hasTrajectoryStage ?stage .
+#     OPTIONAL { ?stage ico:precedes ?nextStage }
+#     ?stage rdfs:label ?disease .
+# }
+# ORDER BY ?stage
+
+# ─────────────────────────────────────────────────────────────
+# Q4: 환자의 다층 데이터 통합 조회
+# "환자 X의 환경노출 + 라이프로그 + 바이오마커 종합 현황"
+# ─────────────────────────────────────────────────────────────
+# SELECT ?patient ?envExposure ?lifelog ?biomarker ?value ?timestamp
+# WHERE {
+#     ?patient a ico:Patient ;
+#              ico:hasExposureTo ?envExposure ;
+#              ico:hasLifelogObservation ?lifelog ;
+#              ico:hasBiomarkerLevel ?biomarkerObs .
+#     ?biomarkerObs ico:hasValue ?value ;
+#                   ico:hasTimestamp ?timestamp .
+# }
+# ORDER BY DESC(?timestamp)
+
+# ─────────────────────────────────────────────────────────────
+# Q5: 특정 질환에 대한 플라즈마 치료 프로토콜 조회
+# "건선(Psoriasis)에 효과적인 RONS 조합과 플라즈마 파라미터는?"
+# ─────────────────────────────────────────────────────────────
+# SELECT ?disease ?protocol ?device ?rons ?selectivity
+# WHERE {
+#     ?disease a ico:Psoriasis ;
+#              ico:treatedBy ?protocol .
+#     ?protocol ico:usesDevice ?device .
+#     ?event a ico:PlasmaExposureEvent ;
+#            ico:inducesRONS ?rons .
+#     ?rons ico:hasSelectivityRatio ?selectivity .
+# }
+
+# ─────────────────────────────────────────────────────────────
+# Q6: 환경요인과 바이오마커 간 상관관계 네트워크 조회
+# "상관계수 |r| > 0.3인 모든 환경-바이오마커 연결"
+# ─────────────────────────────────────────────────────────────
+# SELECT ?envFactor ?biomarker ?correlation ?lagTime
+# WHERE {
+#     ?path a ico:CausalPathway ;
+#           ico:hasCorrelationCoefficient ?correlation ;
+#           ico:hasLagTime ?lagTime .
+#     FILTER (ABS(?correlation) > 0.3)
+# }
+# ORDER BY DESC(ABS(?correlation))
