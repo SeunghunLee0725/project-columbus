@@ -9,6 +9,7 @@ scipy>=1.10
 # Ontology / Knowledge Graph
 rdflib>=7.0
 owlready2>=0.46
+networkx>=3.0
 
 # AI/ML
 torch>=2.0
