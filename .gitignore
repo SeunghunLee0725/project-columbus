@@ -19,7 +19,15 @@ venv/
 # Data (large files)
 *.csv.gz
 *.parquet
+data/*.csv
+data/*.xlsx
+data/*.zip
+data/processed/
 data/raw/
+
+# Claude Code
+.claude/
+.worktrees/
 
 # Secrets
 .env
