@@ -708,7 +708,7 @@ Expected: PASS.
 - Create: `.github/workflows/ci.yml`
 - Create: `docs/production_readiness.md`
 
-- [ ] **Step 1: Add CI workflow**
+- [x] **Step 1: Add CI workflow**
 
 Workflow steps:
 
@@ -731,7 +731,7 @@ jobs:
       - run: columbus validate-ontology research/01_ontology/immune_care_ontology.owl --format xml
 ```
 
-- [ ] **Step 2: Add production readiness doc**
+- [x] **Step 2: Add production readiness doc**
 
 Include:
 
@@ -741,7 +741,7 @@ Include:
 - Current clinical-safety wording limitations.
 - How to regenerate integrated KG.
 
-- [ ] **Step 3: Run local CI-equivalent verification**
+- [x] **Step 3: Run local CI-equivalent verification**
 
 Run:
 
