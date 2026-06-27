@@ -566,7 +566,7 @@ Expected: PASS.
 - Create: `tests/calibration/test_evidence_calibrator.py`
 - Leave legacy: `research/01_ontology/ico_evidence_calibrator.py`
 
-- [ ] **Step 1: Write failing tests for non-destructive calibration**
+- [x] **Step 1: Write failing tests for non-destructive calibration**
 
 Required behaviors:
 
@@ -575,7 +575,7 @@ Required behaviors:
 - It creates `EvidenceBasedCorrelation` individuals from small CSV fixtures.
 - It writes version `0.3.0` only to the output graph.
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run:
 
@@ -585,7 +585,7 @@ pytest tests/calibration/test_evidence_calibrator.py -q
 
 Expected: FAIL because calibration module does not exist.
 
-- [ ] **Step 3: Implement safe calibrator**
+- [x] **Step 3: Implement safe calibrator**
 
 Implementation requirements:
 
@@ -599,7 +599,7 @@ Implementation requirements:
 - Calibration date must be injectable for deterministic tests; default to current date only in CLI/runtime.
 - Post-write validation must parse the output RDF/XML and report triple counts before returning success.
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run:
 
