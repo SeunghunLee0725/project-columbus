@@ -8,10 +8,12 @@ version = "0.1.0"
 description = "Production hardening package for Project Columbus immune care ontology reasoning."
 requires-python = ">=3.12"
 dependencies = [
+  "fastapi>=0.110",
   "networkx>=3.0",
   "numpy>=1.24",
   "pandas>=2.0",
   "rdflib>=7.0",
+  "starlette>=0.40,<0.42",
 ]
 
 [project.optional-dependencies]

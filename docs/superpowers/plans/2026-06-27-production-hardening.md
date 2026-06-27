@@ -664,7 +664,7 @@ Expected: PASS.
 - Create: `src/project_columbus/api/app.py`
 - Create: `tests/api/test_app.py`
 
-- [ ] **Step 1: Write failing API tests**
+- [x] **Step 1: Write failing API tests**
 
 Endpoints:
 
@@ -673,7 +673,7 @@ Endpoints:
 - `POST /query/env-to-pathway`
 - `POST /reason/causal-chain`
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run:
 
@@ -681,7 +681,7 @@ Run:
 pytest tests/api/test_app.py -q
 ```
 
-- [ ] **Step 3: Implement minimal FastAPI app**
+- [x] **Step 3: Implement minimal FastAPI app**
 
 Requirements:
 
@@ -690,7 +690,7 @@ Requirements:
 - Startup validates ontology; invalid ontology fails startup.
 - Responses include ontology version.
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run:
 
