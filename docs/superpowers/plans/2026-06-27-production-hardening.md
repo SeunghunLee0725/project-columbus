@@ -619,7 +619,7 @@ Expected: PASS.
 - Modify: `research/01_ontology/ico_evidence_calibrator.py`
 - Create: `tests/legacy/test_legacy_entrypoints.py`
 
-- [ ] **Step 1: Write failing compatibility tests**
+- [x] **Step 1: Write failing compatibility tests**
 
 Required behaviors:
 
@@ -627,7 +627,7 @@ Required behaviors:
 - Legacy scripts no longer install packages at import time.
 - Legacy demo execution remains available under `if __name__ == "__main__"`.
 
-- [ ] **Step 2: Run tests to verify they fail or expose current side effects**
+- [x] **Step 2: Run tests to verify they fail or expose current side effects**
 
 Run:
 
@@ -635,7 +635,7 @@ Run:
 pytest tests/legacy/test_legacy_entrypoints.py -q
 ```
 
-- [ ] **Step 3: Replace internals with wrappers**
+- [x] **Step 3: Replace internals with wrappers**
 
 Implementation requirements:
 
@@ -643,7 +643,7 @@ Implementation requirements:
 - Delegate to `project_columbus` package.
 - Move demo-only output into `main()` functions.
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run:
 

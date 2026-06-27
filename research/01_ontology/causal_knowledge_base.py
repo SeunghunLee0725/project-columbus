@@ -12,8 +12,6 @@ from __future__ import annotations
 import csv
 import io
 import os
-import subprocess
-import sys
 from collections import defaultdict
 from typing import Any, Optional
 
@@ -21,15 +19,19 @@ import numpy as np
 
 try:
     import networkx as nx
-except ImportError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "networkx"])
-    import networkx as nx
+except ImportError as exc:  # pragma: no cover - exercised only in missing dependency envs
+    raise ImportError(
+        "networkx is required. Install project dependencies with `pip install -e .` "
+        "or `pip install -r requirements.txt`."
+    ) from exc
 
 try:
     import pandas as pd
-except ImportError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "pandas"])
-    import pandas as pd
+except ImportError as exc:  # pragma: no cover - exercised only in missing dependency envs
+    raise ImportError(
+        "pandas is required. Install project dependencies with `pip install -e .` "
+        "or `pip install -r requirements.txt`."
+    ) from exc
 
 from rdflib import Graph, Namespace, RDF, RDFS, OWL, Literal, URIRef, BNode
 from rdflib.namespace import XSD
