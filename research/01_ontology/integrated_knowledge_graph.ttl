@@ -1,0 +1,990 @@
+@prefix : <http://purl.obolibrary.org/obo/ICO#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix obo: <http://purl.obolibrary.org/obo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+obo:CHEBI_16240 a owl:Class ;
+    rdfs:label "hydrogen peroxide" ;
+    rdfs:comment "H2O2 — key signaling molecule for NF-κB activation. ChEBI:16240." .
+
+obo:CHEBI_16480 a owl:Class ;
+    rdfs:label "nitric oxide" ;
+    rdfs:comment "NO• — vasodilation, macrophage signaling. ChEBI:16480." .
+
+obo:CHEBI_25812 a owl:Class ;
+    rdfs:label "ozone" ;
+    rdfs:comment "O3 — antimicrobial, inflammatory modulator. ChEBI:25812." .
+
+obo:CHEBI_25941 a owl:Class ;
+    rdfs:label "peroxynitrite" ;
+    rdfs:comment "ONOO⁻ — protein nitration, cytotoxicity. ChEBI:25941." .
+
+obo:CHEBI_26523 a owl:Class ;
+    rdfs:label "reactive oxygen species" ;
+    rdfs:comment "From ChEBI. Chemical classification of ROS." .
+
+obo:CHEBI_26689 a owl:Class ;
+    rdfs:label "singlet oxygen" ;
+    rdfs:comment "¹O2 — photodynamic effects. ChEBI:26689." .
+
+obo:CHEBI_29191 a owl:Class ;
+    rdfs:label "hydroxyl radical" ;
+    rdfs:comment "•OH — highly reactive ROS. ChEBI:29191." .
+
+obo:CHEBI_62764 a owl:Class ;
+    rdfs:label "reactive nitrogen species" ;
+    rdfs:comment "From ChEBI. Chemical classification of RNS." .
+
+obo:GO_0000302 a owl:Class ;
+    rdfs:label "response to reactive oxygen species" ;
+    rdfs:comment "From Gene Ontology. Directly relevant to RONS-immune axis." .
+
+obo:GO_0006954 a owl:Class ;
+    rdfs:label "inflammatory response" ;
+    rdfs:comment "From Gene Ontology." .
+
+obo:GO_0006955 a owl:Class ;
+    rdfs:label "immune response" ;
+    rdfs:comment "From Gene Ontology. Biological process of immune system activation." .
+
+obo:IAO_0000114 a owl:AnnotationProperty ;
+    rdfs:label "curation status" .
+
+obo:IAO_0000115 a owl:AnnotationProperty ;
+    rdfs:label "definition" .
+
+obo:ICO a owl:Ontology ;
+    dc:contributor "KIMS (Korea Institute of Materials Science)" ;
+    dc:creator "Seunghoon Lee" ;
+    dc:description "A multi-dimensional ontology integrating environmental, lifelog, and biomarker data for immune disease trajectory prediction and plasma medicine-based treatment."@en ;
+    dc:rights "CC-BY 4.0" ;
+    dc:title "Immune Care Ontology"@en,
+        "면역 케어 온톨로지"@ko ;
+    rdfs:comment "MIREOT: environmental material and atmospheric feature classes from ENVO",
+        "MIREOT: exposure event, stressor, route classes from Exposure Ontology",
+        "MIREOT: obo:CHEBI_26523 (ROS), obo:CHEBI_62764 (RNS) subtrees from ChEBI",
+        "MIREOT: obo:DOID_2914 (immune system disease) subtree from Disease Ontology",
+        "MIREOT: obo:GO_0006955 (immune response), obo:GO_0000302 (response to ROS) from Gene Ontology" ;
+    owl:imports obo:bfo.owl ;
+    owl:versionIRI <http://purl.obolibrary.org/obo/ICO/2026-03-30/ico.owl> ;
+    owl:versionInfo "0.2.0" .
+
+:AM_Stage1_AD a :TrajectoryStage,
+        owl:NamedIndividual ;
+    rdfs:label "Allergic March Stage 1: Atopic Dermatitis (L20)" ;
+    :precedes :AM_Stage2_Asthma .
+
+:AllergenExposureScore a owl:Class ;
+    rdfs:label "Allergen Exposure Score" ;
+    obo:IAO_0000115 "Composite of humidity + mold + dust mite exposure." ;
+    :koreanLabel "알레르겐 노출점수" ;
+    rdfs:subClassOf :CompositeEnvironmentalIndex .
+
+:AllergicMarch_Trajectory a :AllergicMarch,
+        owl:NamedIndividual ;
+    rdfs:label "Standard Allergic March Progression" ;
+    obo:IAO_0000115 "AD(L20) → Asthma(J45) → AR(J30) → Psoriasis(L40) → Dry Eye(H04.1). Composite prediction r=+0.62, target AUC ≥ 0.85." ;
+    :koreanLabel "표준 알레르기 마치 진행" .
+
+:AllergicRhinitis a owl:Class ;
+    rdfs:label "Allergic Rhinitis" ;
+    obo:IAO_0000115 "ICD-10: J30. Part of allergic march trajectory." ;
+    :koreanLabel "알레르기 비염" ;
+    rdfs:subClassOf :ImmuneDisease .
+
+:Alopecia a owl:Class ;
+    rdfs:label "Alopecia" ;
+    obo:IAO_0000115 "Immune-mediated hair loss. Plasma treatment has shown hair regrowth potential." ;
+    :koreanLabel "탈모" ;
+    rdfs:subClassOf :ImmuneDisease .
+
+:BTEX a owl:Class ;
+    rdfs:label "BTEX" ;
+    obo:IAO_0000115 "Benzene, Toluene, Ethylbenzene, and Xylene — immunotoxic aromatic hydrocarbons." ;
+    :koreanLabel "벤젠/톨루엔/에틸벤젠/자일렌" ;
+    rdfs:subClassOf :VolatileOrganicCompound .
+
+:CAP_NFkB_Inhibition_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "CAP NO → S-nitrosylation → NF-κB inhibition" ;
+    obo:IAO_0000115 "Plasma NO at low dose → S-nitrosylation of NF-κB → anti-inflammatory effect → IL-6 decrease." ;
+    :hasEvidenceStrength "Planned" ;
+    :hasSourceFactor :NitricOxide ;
+    :hasSourceLayer "L4" ;
+    :hasTargetFactor :IL6 ;
+    :hasTargetLayer "L3" ;
+    :involvesPathway :NFkBPathway .
+
+:CAP_Nrf2_Activation_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "CAP low-dose ROS → Nrf2 → antioxidant defense" ;
+    obo:IAO_0000115 "RONS hormesis → Keap1 oxidation → Nrf2 nuclear translocation → ARE activation → HO-1/SOD/catalase upregulation." ;
+    :hasEvidenceStrength "Planned" ;
+    :hasSourceLayer "L4" ;
+    :hasTargetLayer "L3" ;
+    :involvesPathway :Nrf2Keap1Pathway .
+
+:CAP_Psoriasis_Treatment_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "CAP Patch (630ns) → Th17/TNF-α modulation → Psoriasis treatment" ;
+    obo:IAO_0000115 "CAP patch → selective RONS → Th17/TNF-α axis modulation → psoriasis plaque reduction. Published: Adv Sci 2022, IF 14.3." ;
+    :hasEvidenceStrength "Published" ;
+    :hasSourceFactor :CAPPatch ;
+    :hasSourceLayer "L4" ;
+    :hasTargetFactor :Psoriasis ;
+    :hasTargetLayer "Disease" ;
+    :involvesPathway :Th17Pathway .
+
+:CO2Level a owl:Class ;
+    rdfs:label "CO2 Level" ;
+    obo:IAO_0000115 "Indoor CO2 concentration as a proxy for ventilation quality." ;
+    :koreanLabel "이산화탄소 농도" ;
+    rdfs:subClassOf :EnvironmentalFactor .
+
+:CompositeScore_to_AllergicMarch_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "Multi-layer composite → Allergic March trajectory" ;
+    obo:IAO_0000115 "Multi-layer fusion: Env + Lifelog + Biomarker → disease trajectory. Target AUC ≥ 0.85." ;
+    :hasCorrelationCoefficient "0.62"^^xsd:float ;
+    :hasEvidenceStrength "Target" ;
+    :hasLagTime "17520.0"^^xsd:float ;
+    :hasSourceLayer "L1+L2+L3" ;
+    :hasTargetFactor :AllergicMarch ;
+    :hasTargetLayer "Disease" .
+
+:DryEyeDisease a owl:Class ;
+    rdfs:label "Dry Eye Disease" ;
+    obo:IAO_0000115 "ICD-10: H04.1. Inflammatory component in immune-mediated dry eye." ;
+    :koreanLabel "안구건조증" ;
+    rdfs:subClassOf :ImmuneDisease .
+
+:DustMite a owl:Class ;
+    rdfs:label "Dust Mite" ;
+    obo:IAO_0000115 "House dust mites producing Der p1 antigen that triggers IL-13 via Th2 pathway." ;
+    :koreanLabel "진드기" ;
+    rdfs:subClassOf :BiologicalAllergen .
+
+:ELISA a owl:Class ;
+    rdfs:label "ELISA" ;
+    obo:IAO_0000115 "Enzyme-linked immunosorbent assay for cytokine quantification." ;
+    rdfs:subClassOf :BiomarkerAssay .
+
+:EPRSpectroscopy a owl:Class ;
+    rdfs:label "EPR Spectroscopy" ;
+    obo:IAO_0000115 "Electron Paramagnetic Resonance spectroscopy for RONS selectivity ratio evaluation." ;
+    rdfs:subClassOf :RONSMeasurement .
+
+:EnvironmentalSensor a owl:Class ;
+    rdfs:label "Environmental Sensor" ;
+    obo:IAO_0000115 "IoT sensor device for measuring environmental parameters." ;
+    :koreanLabel "환경 센서" .
+
+:Formaldehyde a owl:Class ;
+    rdfs:label "Formaldehyde" ;
+    :koreanLabel "포름알데히드" ;
+    rdfs:subClassOf :VolatileOrganicCompound .
+
+:HRV_to_IL6_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "Low HRV → weakened vagal reflex → IL-6 increase" ;
+    obo:IAO_0000115 "Low vagal tone → cholinergic anti-inflammatory reflex weakened → IL-6 upregulation." ;
+    :hasCorrelationCoefficient "-0.42"^^xsd:float ;
+    :hasEvidenceStrength "Strong" ;
+    :hasLagTime "6.0"^^xsd:float ;
+    :hasSourceFactor :HRVMeasurement ;
+    :hasSourceLayer "L2" ;
+    :hasTargetFactor :IL6 ;
+    :hasTargetLayer "L3" .
+
+:HormesisResponse a owl:Class ;
+    rdfs:label "Hormesis Response" ;
+    obo:IAO_0000115 "Beneficial adaptive biological response to low-dose RONS stress from plasma exposure. Low-dose stimulates; high-dose inhibits." ;
+    :koreanLabel "호르메시스 반응" .
+
+:HydroxylRadical a owl:Class ;
+    rdfs:label "Hydroxyl Radical" ;
+    obo:IAO_0000115 "•OH — highly reactive ROS. ChEBI:29191." ;
+    :koreanLabel "하이드록실 라디칼" ;
+    rdfs:subClassOf :ReactiveOxygenSpecies .
+
+:IL10 a owl:Class ;
+    rdfs:label "Interleukin-10" ;
+    :koreanLabel "인터류킨-10" ;
+    rdfs:subClassOf :AntiInflammatoryCytokine .
+
+:IL17 a owl:Class ;
+    rdfs:label "Interleukin-17" ;
+    obo:IAO_0000115 "Th17 pathway cytokine. TNF-α + IL-17 correlates with psoriasis (r=+0.50)." ;
+    :koreanLabel "인터류킨-17" ;
+    rdfs:subClassOf :ProInflammatoryCytokine .
+
+:IL4 a owl:Class ;
+    rdfs:label "Interleukin-4" ;
+    obo:IAO_0000115 "Th2 cytokine involved in Th1/Th2 balance regulation and IgE class switching." ;
+    :koreanLabel "인터류킨-4" ;
+    rdfs:subClassOf :AntiInflammatoryCytokine .
+
+:IL4_IL13_to_AtopicDerm_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "IL-4/IL-13 high → filaggrin loss → Atopic Dermatitis" ;
+    obo:IAO_0000115 "Th2 cytokine → filaggrin downregulation → barrier dysfunction → AD flare." ;
+    :hasCorrelationCoefficient "0.58"^^xsd:float ;
+    :hasEvidenceStrength "Strong" ;
+    :hasLagTime "336.0"^^xsd:float ;
+    :hasSourceFactor :IL13 ;
+    :hasSourceLayer "L3" ;
+    :hasTargetFactor :AtopicDermatitis ;
+    :hasTargetLayer "Disease" .
+
+:IL5 a owl:Class ;
+    rdfs:label "Interleukin-5" ;
+    obo:IAO_0000115 "Eosinophil recruitment cytokine. IgE + IL-5 correlates with asthma onset (r=+0.55)." ;
+    :koreanLabel "인터류킨-5" ;
+    rdfs:subClassOf :ProInflammatoryCytokine .
+
+:IgE_IL5_to_Asthma_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "IgE + IL-5 → eosinophil → Asthma" ;
+    obo:IAO_0000115 "IgE sensitization → eosinophil recruitment (IL-5) → airway hyperreactivity → asthma." ;
+    :hasCorrelationCoefficient "0.55"^^xsd:float ;
+    :hasEvidenceStrength "Strong" ;
+    :hasLagTime "2160.0"^^xsd:float ;
+    :hasSourceFactor :IgE ;
+    :hasSourceLayer "L3" ;
+    :hasTargetFactor :Asthma ;
+    :hasTargetLayer "Disease" .
+
+:ImmuneRiskScore a owl:Class ;
+    rdfs:label "Immune Risk Score" ;
+    obo:IAO_0000115 "A composite score derived from multi-layer data (environment + lifelog + biomarker) predicting immune disease risk." ;
+    :koreanLabel "면역 위험 점수" .
+
+:LowActivity_to_TNFa_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "Low activity → adipokine → TNF-α elevation" ;
+    obo:IAO_0000115 "Sedentary → adipose tissue expansion → adipokine-mediated TNF-α." ;
+    :hasCorrelationCoefficient "0.28"^^xsd:float ;
+    :hasEvidenceStrength "Emerging" ;
+    :hasLagTime "72.0"^^xsd:float ;
+    :hasSourceFactor :PhysicalActivityLevel ;
+    :hasSourceLayer "L2" ;
+    :hasTargetFactor :TNFAlpha ;
+    :hasTargetLayer "L3" .
+
+:MDA a owl:Class ;
+    rdfs:label "Malondialdehyde" ;
+    obo:IAO_0000115 "Lipid peroxidation marker indicating oxidative stress." ;
+    :koreanLabel "말론디알데히드" ;
+    rdfs:subClassOf :OxidativeDamageMarker .
+
+:Mold a owl:Class ;
+    rdfs:label "Mold" ;
+    :koreanLabel "곰팡이" ;
+    rdfs:subClassOf :BiologicalAllergen .
+
+:NLRP3Inflammasome a owl:Class ;
+    rdfs:label "NLRP3 Inflammasome" ;
+    obo:IAO_0000115 "Innate immune inflammatory complex activated by environmental stress signals." ;
+    :koreanLabel "NLRP3 인플라마좀" ;
+    rdfs:subClassOf :SignalingPathway .
+
+:NanosecondPulseControl a owl:Class ;
+    rdfs:label "Nanosecond Pulse Control" ;
+    obo:IAO_0000115 "Key technology for selective RONS generation via nanosecond-scale pulse power control (demonstrated at 630 ns, ~3 kV peak)." ;
+    :koreanLabel "나노초 펄스 제어" ;
+    rdfs:subClassOf :PlasmaOperatingParameters .
+
+:NitrogenDioxide a owl:Class ;
+    rdfs:label "Nitrogen Dioxide" ;
+    obo:IAO_0000115 "NO2• — oxidative stress inducer. ChEBI:33101." ;
+    :koreanLabel "이산화질소" ;
+    rdfs:subClassOf :ReactiveNitrogenSpecies .
+
+:OxidativeStressLoad a owl:Class ;
+    rdfs:label "Oxidative Stress Load" ;
+    obo:IAO_0000115 "Composite of PM + VOC + O3 representing total oxidative burden from environmental exposure." ;
+    :koreanLabel "산화스트레스 부하" ;
+    rdfs:subClassOf :CompositeEnvironmentalIndex .
+
+:Ozone a owl:Class ;
+    rdfs:label "Ozone (Environmental)" ;
+    :koreanLabel "오존 (환경)" ;
+    rdfs:subClassOf :AirPollutant .
+
+:PFAS a owl:Class ;
+    rdfs:label "PFAS" ;
+    obo:IAO_0000115 "Per- and polyfluoroalkyl substances — persistent environmental contaminants that disrupt immune function." ;
+    :koreanLabel "과불화화합물" ;
+    rdfs:subClassOf :EnvironmentalFactor .
+
+:PM10 a owl:Class ;
+    rdfs:label "PM10" ;
+    :koreanLabel "미세먼지" ;
+    rdfs:subClassOf :ParticulateMatter .
+
+:PM2_5_to_8OHdG_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "PM2.5 → mitochondrial ROS → 8-OHdG" ;
+    obo:IAO_0000115 "PM2.5 → mitochondrial ROS → DNA oxidative damage via 8-OHdG." ;
+    :hasCorrelationCoefficient "0.48"^^xsd:float ;
+    :hasEvidenceStrength "Strong" ;
+    :hasLagTime "48.0"^^xsd:float ;
+    :hasSourceFactor :PM2_5 ;
+    :hasSourceLayer "L1" ;
+    :hasTargetFactor :OHdG_8 ;
+    :hasTargetLayer "L3" .
+
+:PM2_5_to_CRP_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "PM2.5 → systemic inflammation → CRP" ;
+    obo:IAO_0000115 "PM2.5 → systemic inflammation spillover → hepatic CRP synthesis." ;
+    :hasCorrelationCoefficient "0.38"^^xsd:float ;
+    :hasEvidenceStrength "Strong" ;
+    :hasLagTime "60.0"^^xsd:float ;
+    :hasSourceFactor :PM2_5 ;
+    :hasSourceLayer "L1" ;
+    :hasTargetFactor :CRP ;
+    :hasTargetLayer "L3" ;
+    :involvesPathway :NFkBPathway .
+
+:PM2_5_to_HRV_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "PM2.5 → autonomic imbalance → HRV decrease" ;
+    obo:IAO_0000115 "PM2.5 → autonomic imbalance → vagal tone decrease → SDNN drop." ;
+    :hasCorrelationCoefficient "-0.42"^^xsd:float ;
+    :hasEvidenceStrength "Strong" ;
+    :hasLagTime "4.0"^^xsd:float ;
+    :hasSourceFactor :PM2_5 ;
+    :hasSourceLayer "L1" ;
+    :hasTargetFactor :HRVMeasurement ;
+    :hasTargetLayer "L2" .
+
+:PM2_5_to_IL6_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "PM2.5 → NF-κB → IL-6" ;
+    obo:IAO_0000115 "PM2.5 → ROS generation → NF-κB activation → IL-6 transcription." ;
+    :hasCorrelationCoefficient "0.52"^^xsd:float ;
+    :hasEvidenceStrength "Strong" ;
+    :hasLagTime "15.0"^^xsd:float ;
+    :hasSourceFactor :PM2_5 ;
+    :hasSourceLayer "L1" ;
+    :hasTargetFactor :IL6 ;
+    :hasTargetLayer "L3" ;
+    :involvesPathway :NFkBPathway ;
+    :koreanLabel "PM2.5 → NF-κB → IL-6 경로" .
+
+:PM2_5_to_SpO2_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "PM2.5 → airway inflammation → SpO2 decrease" ;
+    obo:IAO_0000115 "PM2.5 → airway inflammation → V/Q mismatch → SpO2 decrease." ;
+    :hasCorrelationCoefficient "-0.25"^^xsd:float ;
+    :hasEvidenceStrength "Moderate" ;
+    :hasLagTime "4.0"^^xsd:float ;
+    :hasSourceFactor :PM2_5 ;
+    :hasSourceLayer "L1" ;
+    :hasTargetFactor :SpO2Measurement ;
+    :hasTargetLayer "L2" .
+
+:PM2_5_to_TNFa_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "PM2.5 → M1 macrophage → TNF-α" ;
+    obo:IAO_0000115 "PM2.5 → alveolar macrophage M1 polarization → TNF-α release." ;
+    :hasCorrelationCoefficient "0.45"^^xsd:float ;
+    :hasEvidenceStrength "Strong" ;
+    :hasLagTime "15.0"^^xsd:float ;
+    :hasSourceFactor :PM2_5 ;
+    :hasSourceLayer "L1" ;
+    :hasTargetFactor :TNFAlpha ;
+    :hasTargetLayer "L3" ;
+    :involvesPathway :NFkBPathway ;
+    :koreanLabel "PM2.5 → M1 대식세포 → TNF-α 경로" .
+
+:PlasmaOzone a owl:Class ;
+    rdfs:label "Ozone (Plasma-generated)" ;
+    obo:IAO_0000115 "O3 generated by plasma device. ChEBI:25812." ;
+    :koreanLabel "오존 (플라즈마 생성)" ;
+    rdfs:subClassOf :ReactiveOxygenSpecies .
+
+:PortablePlasmaGenerator a owl:Class ;
+    rdfs:label "Portable Plasma Generator" ;
+    :koreanLabel "휴대용 플라즈마 발생장치" ;
+    rdfs:subClassOf :ColdAtmosphericPlasmaDevice .
+
+:RH_to_IL13_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "High RH → dust mite → Der p1 → IL-13" ;
+    obo:IAO_0000115 "High relative humidity → dust mite proliferation → Der p1 antigen → IL-13 via Th2." ;
+    :hasCorrelationCoefficient "0.3"^^xsd:float ;
+    :hasEvidenceStrength "Moderate" ;
+    :hasLagTime "72.0"^^xsd:float ;
+    :hasSourceFactor :RelativeHumidity ;
+    :hasSourceLayer "L1" ;
+    :hasTargetFactor :IL13 ;
+    :hasTargetLayer "L3" .
+
+:RONSSelectivityProfile a owl:Class ;
+    rdfs:label "RONS Selectivity Profile" ;
+    obo:IAO_0000115 "The ratio and composition of RONS species generated by a specific plasma parameter set. Target selectivity ratio ≥ 10." ;
+    :koreanLabel "RONS 선택성 프로필" .
+
+:Radon a owl:Class ;
+    rdfs:label "Radon" ;
+    obo:IAO_0000115 "Radioactive gas contributing to immune suppression." ;
+    :koreanLabel "라돈" ;
+    rdfs:subClassOf :EnvironmentalFactor .
+
+:RamanSERS a owl:Class ;
+    rdfs:label "Raman SERS" ;
+    obo:IAO_0000115 "Surface-Enhanced Raman Spectroscopy for point-of-care molecular biomarker quantification." ;
+    :koreanLabel "라만 SERS" ;
+    rdfs:subClassOf :BiomarkerAssay .
+
+:ReactomeCytokineSignaling a owl:Class ;
+    rdfs:label "Cytokine Signaling (Reactome)" ;
+    rdfs:comment "Reactome:R-HSA-1280215. Cytokine signaling in immune system." ;
+    rdfs:seeAlso <https://reactome.org/content/detail/R-HSA-1280215> .
+
+:ReactomeNFkB a owl:Class ;
+    rdfs:label "NF-κB Signaling (Reactome)" ;
+    rdfs:comment "Reactome:R-HSA-9607240. NF-κB signaling pathway." ;
+    rdfs:seeAlso <https://reactome.org/content/detail/R-HSA-9607240> .
+
+:RheumatoidArthritis a owl:Class ;
+    rdfs:label "Rheumatoid Arthritis" ;
+    obo:IAO_0000115 "ICD-10: M05/M06. Autoimmune joint disease." ;
+    :koreanLabel "류마티스 관절염" ;
+    rdfs:subClassOf :ImmuneDisease .
+
+:SingletOxygen a owl:Class ;
+    rdfs:label "Singlet Oxygen" ;
+    obo:IAO_0000115 "¹O2 — photodynamic ROS. ChEBI:26689." ;
+    :koreanLabel "일중항 산소" ;
+    rdfs:subClassOf :ReactiveOxygenSpecies .
+
+:SkinTemperature a owl:Class ;
+    rdfs:label "Skin Temperature" ;
+    obo:IAO_0000115 "Circadian skin temperature variation indicating thermoregulation integrity." ;
+    :koreanLabel "피부온도" ;
+    rdfs:subClassOf :LifelogObservation .
+
+:SleepDeprivation_to_CRP_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "Sleep deprivation → HPA axis → CRP elevation" ;
+    obo:IAO_0000115 "Sleep loss → HPA axis activation → cortisol dysregulation → CRP elevation." ;
+    :hasCorrelationCoefficient "0.38"^^xsd:float ;
+    :hasEvidenceStrength "Strong" ;
+    :hasLagTime "36.0"^^xsd:float ;
+    :hasSourceFactor :SleepQualityAssessment ;
+    :hasSourceLayer "L2" ;
+    :hasTargetFactor :CRP ;
+    :hasTargetLayer "L3" .
+
+:TNFa_IL17_to_Psoriasis_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "TNF-α + IL-17 → keratinocyte → Psoriasis" ;
+    obo:IAO_0000115 "Th17/TNF-α axis → keratinocyte hyperproliferation → plaque formation." ;
+    :hasCorrelationCoefficient "0.5"^^xsd:float ;
+    :hasEvidenceStrength "Strong" ;
+    :hasLagTime "336.0"^^xsd:float ;
+    :hasSourceFactor :TNFAlpha ;
+    :hasSourceLayer "L3" ;
+    :hasTargetFactor :Psoriasis ;
+    :hasTargetLayer "Disease" ;
+    :involvesPathway :Th17Pathway .
+
+:Temperature a owl:Class ;
+    rdfs:label "Ambient Temperature" ;
+    :koreanLabel "기온" ;
+    rdfs:subClassOf :ClimateFactor .
+
+:TrajectoryPrediction a owl:Class ;
+    rdfs:label "Trajectory Prediction" ;
+    obo:IAO_0000115 "AI-generated prediction of disease trajectory direction (onset, aggravation, recovery) with associated confidence (AUC score)." ;
+    :koreanLabel "궤적 예측" .
+
+:UVVisAbsorptionSpectroscopy a owl:Class ;
+    rdfs:label "UV-Vis Absorption Spectroscopy" ;
+    obo:IAO_0000115 "UV-Vis absorption spectroscopy for RONS concentration measurement (R=0.9972)." ;
+    rdfs:subClassOf :RONSMeasurement .
+
+:VOCs_to_IgE_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "VOCs → epithelial barrier → Th2 → IgE" ;
+    obo:IAO_0000115 "VOCs → epithelial barrier disruption → Th2 skew → IgE class switch." ;
+    :hasCorrelationCoefficient "0.35"^^xsd:float ;
+    :hasEvidenceStrength "Moderate" ;
+    :hasLagTime "504.0"^^xsd:float ;
+    :hasSourceFactor :VolatileOrganicCompound ;
+    :hasSourceLayer "L1" ;
+    :hasTargetFactor :IgE ;
+    :hasTargetLayer "L3" ;
+    :involvesPathway :Th1Th2Balance .
+
+:VOCs_to_Sleep_Path a :CausalPathway,
+        owl:NamedIndividual ;
+    rdfs:label "VOCs → airway irritation → sleep disruption" ;
+    obo:IAO_0000115 "VOCs → upper airway irritation → sleep fragmentation → deep sleep decrease." ;
+    :hasCorrelationCoefficient "-0.32"^^xsd:float ;
+    :hasEvidenceStrength "Moderate" ;
+    :hasLagTime "6.0"^^xsd:float ;
+    :hasSourceFactor :VolatileOrganicCompound ;
+    :hasSourceLayer "L1" ;
+    :hasTargetFactor :SleepQualityAssessment ;
+    :hasTargetLayer "L2" .
+
+:VentilationIndex a owl:Class ;
+    rdfs:label "Ventilation Index" ;
+    obo:IAO_0000115 "CO2 decay rate as a proxy for indoor ventilation quality." ;
+    :koreanLabel "환기지수" ;
+    rdfs:subClassOf :CompositeEnvironmentalIndex .
+
+:WearableDevice a owl:Class ;
+    rdfs:label "Wearable Device" ;
+    obo:IAO_0000115 "Personal wearable sensor for continuous biosignal monitoring (smartwatch, smart ring, skin-attachable sensor)." ;
+    :koreanLabel "웨어러블 기기" .
+
+:activatesPathway a owl:ObjectProperty ;
+    rdfs:label "activates pathway" ;
+    obo:IAO_0000115 "Relates a reactive species or environmental exposure to a signaling pathway it activates." .
+
+:correlatesWith a owl:ObjectProperty ;
+    rdfs:label "correlates with" ;
+    obo:IAO_0000115 "Statistical correlation between measurements across layers." .
+
+:hasAUCScore a owl:DatatypeProperty ;
+    rdfs:label "has AUC score" ;
+    rdfs:range xsd:float .
+
+:hasBiomarkerLevel a owl:ObjectProperty ;
+    rdfs:label "has biomarker level" ;
+    obo:IAO_0000115 "Relates a patient observation to a measured biomarker value." .
+
+:hasCorrelationCoefficient a owl:DatatypeProperty ;
+    rdfs:label "has correlation coefficient" ;
+    rdfs:range xsd:float .
+
+:hasEvidenceStrength a owl:DatatypeProperty ;
+    rdfs:label "has evidence strength" ;
+    obo:IAO_0000115 "Evidence level: Strong, Moderate, Emerging, Planned, Published." ;
+    rdfs:range xsd:string .
+
+:hasExposureTo a owl:ObjectProperty ;
+    rdfs:label "has exposure to" ;
+    obo:IAO_0000115 "Relates a subject to an environmental stressor they are exposed to." ;
+    rdfs:domain :Patient ;
+    rdfs:range :EnvironmentalFactor .
+
+:hasLagTime a owl:DatatypeProperty ;
+    rdfs:label "has lag time" ;
+    obo:IAO_0000115 "Time delay between cause and effect in hours." ;
+    rdfs:range xsd:float .
+
+:hasLifelogObservation a owl:ObjectProperty ;
+    rdfs:label "has lifelog observation" ;
+    rdfs:domain :Patient ;
+    rdfs:range :LifelogObservation .
+
+:hasSelectivityRatio a owl:DatatypeProperty ;
+    rdfs:label "has selectivity ratio" ;
+    obo:IAO_0000115 "Ratio of desired to undesired RONS species generated by plasma device." ;
+    rdfs:range xsd:float .
+
+:hasSourceFactor a owl:ObjectProperty ;
+    rdfs:label "has source factor" ;
+    obo:IAO_0000115 "The originating factor (cause) in a causal pathway." ;
+    rdfs:domain :CausalPathway .
+
+:hasSourceLayer a owl:DatatypeProperty ;
+    rdfs:label "has source layer" ;
+    obo:IAO_0000115 "The originating layer (L1=Environment, L2=Lifelog, L3=Biomarker, L4=Plasma)." ;
+    rdfs:range xsd:string .
+
+:hasTargetFactor a owl:ObjectProperty ;
+    rdfs:label "has target factor" ;
+    obo:IAO_0000115 "The resulting factor (effect) in a causal pathway." ;
+    rdfs:domain :CausalPathway .
+
+:hasTargetLayer a owl:DatatypeProperty ;
+    rdfs:label "has target layer" ;
+    obo:IAO_0000115 "The target layer (L2=Lifelog, L3=Biomarker, Disease)." ;
+    rdfs:range xsd:string .
+
+:hasTimestamp a owl:DatatypeProperty ;
+    rdfs:label "has timestamp" ;
+    rdfs:range xsd:dateTime .
+
+:hasTrajectoryStage a owl:ObjectProperty ;
+    rdfs:label "has trajectory stage" ;
+    obo:IAO_0000115 "Relates a disease trajectory to its component stages." ;
+    rdfs:domain :DiseaseTrajectory ;
+    rdfs:range :TrajectoryStage .
+
+:hasUnit a owl:DatatypeProperty ;
+    rdfs:label "has unit" ;
+    rdfs:range xsd:string .
+
+:hasValue a owl:DatatypeProperty ;
+    rdfs:label "has value" ;
+    rdfs:range xsd:float .
+
+:inducesRONS a owl:ObjectProperty ;
+    rdfs:label "induces RONS" ;
+    obo:IAO_0000115 "Relates a plasma device operation to the reactive species it generates." ;
+    rdfs:domain :PlasmaExposureEvent ;
+    rdfs:range :ReactiveSpecies .
+
+:involvesPathway a owl:ObjectProperty ;
+    rdfs:label "involves pathway" ;
+    obo:IAO_0000115 "The signaling pathway mediating a causal relationship." ;
+    rdfs:domain :CausalPathway ;
+    rdfs:range :SignalingPathway .
+
+:koreanLabel a owl:AnnotationProperty ;
+    rdfs:label "Korean label" .
+
+:measuredBy a owl:ObjectProperty ;
+    rdfs:label "measured by" ;
+    obo:IAO_0000115 "Relates a biomarker to the assay or device used to measure it." .
+
+:modulatesImmune a owl:ObjectProperty ;
+    rdfs:label "modulates immune response" ;
+    obo:IAO_0000115 "Relates a signaling pathway activation to its effect on immune function." .
+
+:precedes a owl:ObjectProperty,
+        owl:TransitiveProperty ;
+    rdfs:label "precedes" ;
+    obo:IAO_0000115 "Temporal ordering of trajectory stages." ;
+    rdfs:domain :TrajectoryStage ;
+    rdfs:range :TrajectoryStage .
+
+:treatedBy a owl:ObjectProperty ;
+    rdfs:label "treated by" ;
+    obo:IAO_0000115 "Relates an immune disease to a plasma treatment protocol." ;
+    rdfs:domain :ImmuneDisease ;
+    rdfs:range :TreatmentProtocol .
+
+obo:BFO_0000016 a owl:Class ;
+    rdfs:label "disposition" .
+
+obo:BFO_0000020 a owl:Class ;
+    rdfs:label "specifically dependent continuant" .
+
+obo:DOID_2914 a owl:Class ;
+    rdfs:label "immune system disease" ;
+    rdfs:comment "From Disease Ontology. Root class for all immune diseases." .
+
+:AM_Stage2_Asthma a :TrajectoryStage,
+        owl:NamedIndividual ;
+    rdfs:label "Allergic March Stage 2: Asthma (J45)" ;
+    :precedes :AM_Stage3_AR .
+
+:AM_Stage3_AR a :TrajectoryStage,
+        owl:NamedIndividual ;
+    rdfs:label "Allergic March Stage 3: Allergic Rhinitis (J30)" ;
+    :precedes :AM_Stage4_Psoriasis .
+
+:AM_Stage4_Psoriasis a :TrajectoryStage,
+        owl:NamedIndividual ;
+    rdfs:label "Allergic March Stage 4: Psoriasis (L40)" ;
+    :precedes :AM_Stage5_DryEye .
+
+:AM_Stage5_DryEye a :TrajectoryStage,
+        owl:NamedIndividual ;
+    rdfs:label "Allergic March Stage 5: Dry Eye Disease (H04.1)" .
+
+:Asthma a owl:Class ;
+    rdfs:label "Asthma" ;
+    obo:IAO_0000115 "ICD-10: J45. IgE sensitization → eosinophil recruitment (IL-5) → airway hyperreactivity. IgE+IL-5 correlates r=+0.55." ;
+    :koreanLabel "천식" ;
+    rdfs:subClassOf :ImmuneDisease .
+
+:AtopicDermatitis a owl:Class ;
+    rdfs:label "Atopic Dermatitis" ;
+    obo:IAO_0000115 "ICD-10: L20. Driven by Th2 cytokines (IL-4/IL-13) → filaggrin downregulation → barrier dysfunction. IL-4/IL-13 high correlates r=+0.58." ;
+    :koreanLabel "아토피 피부염" ;
+    rdfs:subClassOf :ImmuneDisease .
+
+:CAPPatch a owl:Class ;
+    rdfs:label "CAP Patch" ;
+    obo:IAO_0000115 "Wearable skin-contact cold atmospheric plasma patch. World-first patent (PI). Published in Advanced Science (IF 14.3, 2022) for psoriasis treatment." ;
+    :koreanLabel "CAP 패치" ;
+    rdfs:subClassOf :ColdAtmosphericPlasmaDevice .
+
+:NitricOxide a owl:Class ;
+    rdfs:label "Nitric Oxide" ;
+    obo:IAO_0000115 "NO• — vasodilation, macrophage signaling, iNOS product. ChEBI:16480." ;
+    :koreanLabel "일산화질소" ;
+    rdfs:subClassOf :ReactiveNitrogenSpecies .
+
+:Nrf2Keap1Pathway a owl:Class ;
+    rdfs:label "Nrf2/Keap1 Pathway" ;
+    obo:IAO_0000115 "Cytoprotective/anti-inflammatory pathway. RONS → Keap1 oxidation → Nrf2 → ARE activation → antioxidant enzyme upregulation (HO-1, SOD, catalase)." ;
+    :koreanLabel "Nrf2/Keap1 경로" ;
+    rdfs:subClassOf :SignalingPathway .
+
+:OHdG_8 a owl:Class ;
+    rdfs:label "8-OHdG" ;
+    obo:IAO_0000115 "DNA oxidative damage marker. PM2.5 → mitochondrial ROS → DNA oxidative damage (r=+0.48, lag 24-72h)." ;
+    :koreanLabel "8-하이드록시디옥시구아노신" ;
+    rdfs:subClassOf :OxidativeDamageMarker .
+
+:PhysicalActivityLevel a owl:Class ;
+    rdfs:label "Physical Activity Level" ;
+    obo:IAO_0000115 "Steps, METs, and activity classification. Low activity correlates with elevated TNF-α via adipokine pathway (r=-0.28)." ;
+    :koreanLabel "신체활동수준" ;
+    rdfs:subClassOf :LifelogObservation .
+
+:PlasmaExposureEvent a owl:Class ;
+    rdfs:label "Plasma Exposure Event" ;
+    obo:IAO_0000115 "A single instance of cold atmospheric plasma treatment application to a patient or biological target." ;
+    :koreanLabel "플라즈마 노출 사건" ;
+    rdfs:subClassOf obo:BFO_0000015 .
+
+:PlasmaOperatingParameters a owl:Class ;
+    rdfs:label "Plasma Operating Parameters" ;
+    obo:IAO_0000115 "Physical parameters controlling plasma generation: pulse width, voltage, frequency, gas composition, exposure duration, distance." ;
+    :koreanLabel "플라즈마 작동 파라미터" .
+
+:RelativeHumidity a owl:Class ;
+    rdfs:label "Relative Humidity" ;
+    :koreanLabel "상대습도" ;
+    rdfs:subClassOf :ClimateFactor .
+
+:SpO2Measurement a owl:Class ;
+    rdfs:label "SpO2 Measurement" ;
+    obo:IAO_0000115 "Peripheral oxygen saturation measurement. Correlates with CRP (r=-0.35)." ;
+    :koreanLabel "산소포화도 측정" ;
+    rdfs:subClassOf :LifelogObservation .
+
+:SystemicInflammationMarker a owl:Class ;
+    rdfs:label "Systemic Inflammation Marker" ;
+    :koreanLabel "전신 염증 마커" ;
+    rdfs:subClassOf :Biomarker .
+
+:Th1Th2Balance a owl:Class ;
+    rdfs:label "Th1/Th2 Balance" ;
+    obo:IAO_0000115 "Adaptive immune polarization between Th1 (cellular) and Th2 (humoral/allergic) responses." ;
+    :koreanLabel "Th1/Th2 균형" ;
+    rdfs:subClassOf :SignalingPathway .
+
+:TreatmentProtocol a owl:Class ;
+    rdfs:label "Treatment Protocol" ;
+    obo:IAO_0000115 "Disease-customized plasma treatment plan specifying device type, RONS cocktail, duration, frequency, and target pathway." ;
+    :koreanLabel "치료 프로토콜" .
+
+:AllergicMarch a owl:Class ;
+    rdfs:label "Allergic March" ;
+    obo:IAO_0000115 "The progressive sequence: Atopic Dermatitis (L20) → Asthma (J45) → Allergic Rhinitis (J30) → Psoriasis (L40) → Dry Eye (H04.1). Composite prediction AUC target ≥ 0.85." ;
+    :koreanLabel "알레르기 마치" ;
+    rdfs:subClassOf :DiseaseTrajectory .
+
+:BiologicalAllergen a owl:Class ;
+    rdfs:label "Biological Allergen" ;
+    :koreanLabel "생물학적 알레르겐" ;
+    rdfs:subClassOf :EnvironmentalFactor .
+
+:BiomarkerAssay a owl:Class ;
+    rdfs:label "Biomarker Assay" ;
+    :koreanLabel "바이오마커 분석법" .
+
+:CRP a owl:Class ;
+    rdfs:label "C-Reactive Protein" ;
+    obo:IAO_0000115 "Acute-phase protein produced by hepatocytes. PM2.5 → systemic inflammation → hepatic CRP synthesis (r=+0.38, lag 48-72h)." ;
+    :koreanLabel "C반응단백" ;
+    rdfs:subClassOf :SystemicInflammationMarker .
+
+:ClimateFactor a owl:Class ;
+    rdfs:label "Climate Factor" ;
+    :koreanLabel "기후 요인" ;
+    rdfs:subClassOf :EnvironmentalFactor .
+
+:ColdAtmosphericPlasmaDevice a owl:Class ;
+    rdfs:label "Cold Atmospheric Plasma Device" ;
+    obo:IAO_0000115 "A device generating non-thermal plasma at atmospheric pressure for biomedical applications. Includes CAP patches, portable generators, and porous ceramic dielectric devices." ;
+    :koreanLabel "저온 대기압 플라즈마 기기" ;
+    rdfs:subClassOf obo:BFO_0000004 .
+
+:Cytokine a owl:Class ;
+    rdfs:label "Cytokine" ;
+    :koreanLabel "사이토카인" ;
+    rdfs:subClassOf :Biomarker .
+
+:HRVMeasurement a owl:Class ;
+    rdfs:label "Heart Rate Variability Measurement" ;
+    obo:IAO_0000115 "Measurement of autonomic nervous system tone via R-R interval variability. Low HRV (SDNN) correlates with weakened vagal anti-inflammatory reflex and elevated IL-6 (r=-0.42, lag 2-6h)." ;
+    :koreanLabel "심박변이도 측정" ;
+    rdfs:subClassOf :LifelogObservation .
+
+:IL13 a owl:Class ;
+    rdfs:label "Interleukin-13" ;
+    obo:IAO_0000115 "Th2 cytokine. High humidity → dust mite → Der p1 → IL-13 pathway. IL-4/IL-13 high correlates with atopic dermatitis (r=+0.58)." ;
+    :koreanLabel "인터류킨-13" ;
+    rdfs:subClassOf :AntiInflammatoryCytokine .
+
+:IgE a owl:Class ;
+    rdfs:label "Immunoglobulin E" ;
+    obo:IAO_0000115 "Allergy antibody. VOCs → epithelial barrier disruption → Th2 skew → IgE class switch." ;
+    :koreanLabel "면역글로불린 E" ;
+    rdfs:subClassOf :Biomarker .
+
+:OxidativeDamageMarker a owl:Class ;
+    rdfs:label "Oxidative Damage Marker" ;
+    :koreanLabel "산화 손상 마커" ;
+    rdfs:subClassOf :Biomarker .
+
+:ParticulateMatter a owl:Class ;
+    rdfs:label "Particulate Matter" ;
+    obo:IAO_0000115 "Airborne particles including PM2.5 and PM10 that trigger ROS generation and NF-κB pathway activation." ;
+    :koreanLabel "미세먼지" ;
+    rdfs:subClassOf :AirPollutant .
+
+:Patient a owl:Class ;
+    rdfs:label "Patient" ;
+    obo:IAO_0000115 "A human individual whose immune status is being monitored and/or treated." ;
+    :koreanLabel "환자" ;
+    rdfs:subClassOf obo:BFO_0000004 .
+
+:Psoriasis a owl:Class ;
+    rdfs:label "Psoriasis" ;
+    obo:IAO_0000115 "ICD-10: L40. Th17/TNF-α axis → keratinocyte hyperproliferation → plaque formation. TNF-α+IL-17 correlates r=+0.50." ;
+    :koreanLabel "건선" ;
+    rdfs:subClassOf :ImmuneDisease .
+
+:RONSMeasurement a owl:Class ;
+    rdfs:label "RONS Measurement" ;
+    :koreanLabel "RONS 측정" .
+
+:ReactiveNitrogenSpecies a owl:Class ;
+    rdfs:label "Reactive Nitrogen Species" ;
+    :koreanLabel "활성질소종" ;
+    rdfs:subClassOf :ReactiveSpecies .
+
+:SleepQualityAssessment a owl:Class ;
+    rdfs:label "Sleep Quality Assessment" ;
+    obo:IAO_0000115 "Deep/REM sleep ratio assessment. Sleep deprivation activates HPA axis, elevating cortisol and CRP (r=-0.38 with TNF-α)." ;
+    :koreanLabel "수면 질 평가" ;
+    rdfs:subClassOf :LifelogObservation .
+
+:Th17Pathway a owl:Class ;
+    rdfs:label "Th17 Pathway" ;
+    obo:IAO_0000115 "IL-17-producing T helper cell pathway. Th17/TNF-α axis drives psoriasis via keratinocyte hyperproliferation." ;
+    :koreanLabel "Th17 경로" ;
+    rdfs:subClassOf :SignalingPathway .
+
+:AirPollutant a owl:Class ;
+    rdfs:label "Air Pollutant" ;
+    :koreanLabel "대기 오염물질" ;
+    rdfs:subClassOf :EnvironmentalFactor .
+
+:AntiInflammatoryCytokine a owl:Class ;
+    rdfs:label "Anti-inflammatory Cytokine" ;
+    :koreanLabel "항염증 사이토카인" ;
+    rdfs:subClassOf :Cytokine .
+
+:CompositeEnvironmentalIndex a owl:Class ;
+    rdfs:label "Composite Environmental Index" ;
+    obo:IAO_0000115 "A derived index combining multiple environmental measurements into a single immune-relevant score." ;
+    :koreanLabel "복합환경지표" .
+
+:DiseaseTrajectory a owl:Class ;
+    rdfs:label "Disease Trajectory" ;
+    obo:IAO_0000115 "A temporal model of immune system state changes connecting environmental exposure and immune response over time to predict disease onset, aggravation, and treatment pathways. The 'health compass' showing where immunity stands and where it is heading." ;
+    :koreanLabel "질병 궤적" ;
+    rdfs:subClassOf obo:BFO_0000015 .
+
+:IL6 a owl:Class ;
+    rdfs:label "Interleukin-6" ;
+    obo:IAO_0000115 "Pro-inflammatory cytokine. PM2.5 exposure → NF-κB activation → IL-6 transcription. Key marker linking environment to systemic inflammation." ;
+    :koreanLabel "인터류킨-6" ;
+    rdfs:subClassOf :ProInflammatoryCytokine .
+
+:ReactiveOxygenSpecies a owl:Class ;
+    rdfs:label "Reactive Oxygen Species" ;
+    :koreanLabel "활성산소종" ;
+    rdfs:subClassOf :ReactiveSpecies .
+
+:ReactiveSpecies a owl:Class ;
+    rdfs:label "Reactive Species" ;
+    obo:IAO_0000115 "Reactive oxygen and nitrogen species (RONS) generated by cold atmospheric plasma or biological processes." ;
+    :koreanLabel "활성종" ;
+    rdfs:subClassOf obo:BFO_0000004 .
+
+:TNFAlpha a owl:Class ;
+    rdfs:label "TNF-alpha" ;
+    obo:IAO_0000115 "Pro-inflammatory cytokine released by M1-polarized alveolar macrophages. Linked to psoriasis via Th17/TNF-α axis." ;
+    :koreanLabel "종양괴사인자-알파" ;
+    rdfs:subClassOf :ProInflammatoryCytokine .
+
+obo:BFO_0000004 a owl:Class ;
+    rdfs:label "independent continuant" .
+
+obo:BFO_0000015 a owl:Class ;
+    rdfs:label "process" .
+
+:Biomarker a owl:Class ;
+    rdfs:label "Biomarker" ;
+    obo:IAO_0000115 "A measurable biological indicator of immune system state or disease trajectory." ;
+    :koreanLabel "바이오마커" ;
+    rdfs:subClassOf obo:BFO_0000020 .
+
+:NFkBPathway a owl:Class ;
+    rdfs:label "NF-κB Pathway" ;
+    obo:IAO_0000115 "Central inflammatory signaling cascade. H2O2 → IKK activation → IκB degradation → NF-κB nuclear translocation → pro-inflammatory cytokine transcription." ;
+    :koreanLabel "NF-κB 경로" ;
+    rdfs:subClassOf :SignalingPathway .
+
+:ProInflammatoryCytokine a owl:Class ;
+    rdfs:label "Pro-inflammatory Cytokine" ;
+    :koreanLabel "염증성 사이토카인" ;
+    rdfs:subClassOf :Cytokine .
+
+:VolatileOrganicCompound a owl:Class ;
+    rdfs:label "Volatile Organic Compound" ;
+    obo:IAO_0000115 "VOCs including BTEX compounds that disrupt epithelial barriers and skew Th2 immune response." ;
+    :koreanLabel "휘발성유기화합물" ;
+    rdfs:subClassOf :AirPollutant .
+
+:LifelogObservation a owl:Class ;
+    rdfs:label "Lifelog Observation" ;
+    obo:IAO_0000115 "A biosignal measurement captured from a wearable device or personal health sensor." ;
+    :koreanLabel "라이프로그 관측" ;
+    rdfs:subClassOf obo:BFO_0000015 .
+
+:PM2_5 a owl:Class ;
+    rdfs:label "PM2.5" ;
+    obo:IAO_0000115 "Fine particulate matter with aerodynamic diameter ≤ 2.5 μm. Primary environmental trigger for immune inflammation via ROS→NF-κB→IL-6 pathway." ;
+    :koreanLabel "초미세먼지" ;
+    rdfs:subClassOf :ParticulateMatter .
+
+:SignalingPathway a owl:Class ;
+    rdfs:label "Signaling Pathway" ;
+    obo:IAO_0000115 "A molecular signaling cascade that mediates immune response." ;
+    :koreanLabel "신호전달 경로" ;
+    rdfs:subClassOf obo:BFO_0000015 .
+
+:EnvironmentalFactor a owl:Class ;
+    rdfs:label "Environmental Factor" ;
+    obo:IAO_0000115 "An environmental agent or condition that may affect immune system function." ;
+    :koreanLabel "환경 요인" ;
+    rdfs:subClassOf obo:BFO_0000004 .
+
+:ImmuneDisease a owl:Class ;
+    rdfs:label "Immune Disease" ;
+    obo:IAO_0000115 "A disease of the immune system. Corresponds to DO DOID:2914 subtree." ;
+    :koreanLabel "면역 질환" ;
+    rdfs:subClassOf obo:BFO_0000016,
+        obo:DOID_2914 .
+
+:TrajectoryStage a owl:Class ;
+    rdfs:label "Trajectory Stage" ;
+    obo:IAO_0000115 "A discrete stage within a disease trajectory representing a specific immune state." ;
+    :koreanLabel "궤적 단계" ;
+    rdfs:subClassOf :DiseaseTrajectory .
+
+:CausalPathway a owl:Class ;
+    rdfs:label "Causal Pathway" ;
+    obo:IAO_0000115 "A chain of cause-and-effect relationships linking environmental exposure through biological mechanisms to disease outcomes, queryable via SPARQL." ;
+    :koreanLabel "인과 경로" .
+

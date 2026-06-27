@@ -1,0 +1,12 @@
+{
+  "output": "research/01_ontology/integrated_knowledge_graph.ttl",
+  "report_path": "research/01_ontology/integrated_knowledge_graph.report.json",
+  "triples": 821,
+  "sources_loaded": [
+    "research/01_ontology/immune_care_ontology.owl"
+  ],
+  "optional_missing": [
+    "research/02_data_pipeline/rdf_output/nhis_disease_instances.ttl"
+  ],
+  "optional_invalid": []
+}

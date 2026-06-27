@@ -4,7 +4,7 @@ from project_columbus.ontology.validator import OntologyValidator
 
 
 OWL_PATH = Path("research/01_ontology/immune_care_ontology.owl")
-BROKEN_TTL = Path("research/01_ontology/integrated_knowledge_graph.ttl")
+INTEGRATED_TTL = Path("research/01_ontology/integrated_knowledge_graph.ttl")
 
 
 def test_core_owl_validation_passes():
@@ -16,11 +16,13 @@ def test_core_owl_validation_passes():
     assert report.stats.causal_pathways == 19
 
 
-def test_broken_integrated_ttl_validation_reports_parse_error():
-    report = OntologyValidator().validate_file(BROKEN_TTL, rdf_format="turtle")
+def test_integrated_ttl_validation_passes():
+    report = OntologyValidator().validate_file(INTEGRATED_TTL, rdf_format="turtle")
 
-    assert not report.ok
-    assert any(issue.code == "PARSE_ERROR" for issue in report.errors)
+    assert report.ok
+    assert report.errors == []
+    assert report.stats is not None
+    assert report.stats.triples == 821
 
 
 def test_required_terms_must_have_expected_rdf_types(tmp_path):

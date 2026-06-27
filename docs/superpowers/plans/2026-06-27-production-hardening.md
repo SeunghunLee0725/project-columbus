@@ -506,7 +506,7 @@ Expected: PASS.
 - Create: `tests/ontology/test_integrated_kg.py`
 - Optionally create: `src/project_columbus/ontology/integrated_export.py`
 
-- [ ] **Step 1: Write failing TTL parse test**
+- [x] **Step 1: Write failing TTL parse test**
 
 ```python
 from pathlib import Path
@@ -521,7 +521,7 @@ def test_integrated_knowledge_graph_is_valid_turtle():
     assert len(graph) > 0
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run:
 
@@ -531,7 +531,7 @@ pytest tests/ontology/test_integrated_kg.py -q
 
 Expected: FAIL with current Turtle parse error.
 
-- [ ] **Step 3: Fix generation source or regenerate safely**
+- [x] **Step 3: Fix generation source or regenerate safely**
 
 Preferred approach:
 
@@ -546,7 +546,7 @@ Preferred approach:
 - Write output to a temporary file, parse it back with rdflib, then atomically replace `integrated_knowledge_graph.ttl`.
 - Never serialize a new integrated KG when consistency checks fail.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run:
 
