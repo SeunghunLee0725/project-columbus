@@ -80,6 +80,26 @@ def test_integrated_kg_exporter_reports_invalid_optional_source(tmp_path):
     assert str(invalid_optional) in summary.optional_invalid[0]
 
 
+def test_integrated_kg_exporter_reports_empty_optional_source(tmp_path):
+    empty_optional = tmp_path / "empty.ttl"
+    empty_optional.write_text("", encoding="utf-8")
+
+    output = tmp_path / "integrated.ttl"
+    report_path = tmp_path / "integrated.report.json"
+
+    summary = IntegratedKGExporter(optional_sources=[empty_optional]).export(
+        output=output,
+        report_path=report_path,
+    )
+
+    graph = Graph()
+    graph.parse(output, format="turtle")
+
+    assert len(graph) == 821
+    assert summary.optional_invalid == [f"{empty_optional}: empty RDF source"]
+    assert str(empty_optional) not in summary.sources_loaded
+
+
 def test_invalid_optional_source_does_not_partially_contaminate_graph(tmp_path):
     invalid_optional = tmp_path / "partially-invalid.ttl"
     invalid_optional.write_text(

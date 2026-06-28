@@ -25,6 +25,18 @@ data/*.zip
 data/processed/
 data/raw/
 
+# Research/generated outputs
+research/02_data_pipeline/correlation_reports/
+research/02_data_pipeline/e2e_results/
+research/02_data_pipeline/eda_reports/
+research/02_data_pipeline/rdf_output/
+research/03_ai_model/model_results/
+
+# Generated diagrams and controlled documents
+research/project_architecture.png
+docs/IRB_*.docx
+docs/IRB_*.hwp
+
 # Claude Code
 .claude/
 .worktrees/

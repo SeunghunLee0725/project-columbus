@@ -103,6 +103,9 @@ class IntegratedKGExporter:
             if not source.exists():
                 optional_missing.append(str(source))
                 continue
+            if source.stat().st_size == 0:
+                optional_invalid.append(f"{source}: empty RDF source")
+                continue
 
             optional_graph = Graph()
             try:
