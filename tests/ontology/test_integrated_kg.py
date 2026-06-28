@@ -21,7 +21,7 @@ def test_integrated_kg_exporter_writes_parseable_turtle_and_report(tmp_path):
     output = tmp_path / "integrated.ttl"
     report_path = tmp_path / "integrated.report.json"
 
-    summary = IntegratedKGExporter().export(output=output, report_path=report_path)
+    summary = IntegratedKGExporter(optional_sources=[]).export(output=output, report_path=report_path)
 
     graph = Graph()
     graph.parse(output, format="turtle")
@@ -29,8 +29,35 @@ def test_integrated_kg_exporter_writes_parseable_turtle_and_report(tmp_path):
     assert len(graph) == 821
     assert summary.triples == 821
     assert summary.sources_loaded == ["research/01_ontology/immune_care_ontology.owl"]
-    assert "research/02_data_pipeline/rdf_output/nhis_disease_instances.ttl" in summary.optional_missing
+    assert summary.optional_missing == []
     assert report_path.exists()
+
+
+def test_integrated_kg_exporter_loads_valid_optional_source(tmp_path):
+    optional_source = tmp_path / "optional.ttl"
+    optional_source.write_text(
+        """
+        @prefix ex: <http://example.org/> .
+        ex:s ex:p ex:o .
+        """,
+        encoding="utf-8",
+    )
+    output = tmp_path / "integrated.ttl"
+    report_path = tmp_path / "integrated.report.json"
+
+    summary = IntegratedKGExporter(optional_sources=[optional_source]).export(
+        output=output,
+        report_path=report_path,
+    )
+
+    graph = Graph()
+    graph.parse(output, format="turtle")
+
+    assert len(graph) == 822
+    assert summary.triples == 822
+    assert str(optional_source) in summary.sources_loaded
+    assert summary.optional_missing == []
+    assert summary.optional_invalid == []
 
 
 def test_integrated_kg_exporter_reports_invalid_optional_source(tmp_path):

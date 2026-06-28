@@ -36,5 +36,7 @@ def test_legacy_scripts_import_without_runtime_pip_install(monkeypatch, filename
     assert module is not None
 
 
-def test_missing_legacy_calibrator_is_documented():
-    assert not (LEGACY_DIR / "ico_evidence_calibrator.py").exists()
+def test_production_calibrator_replaces_legacy_entrypoint_requirement():
+    from project_columbus.calibration.evidence_calibrator import EvidenceCalibrator
+
+    assert EvidenceCalibrator is not None
